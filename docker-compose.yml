@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: taskmania-react-image
+    container_name: taskmania-app
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - app-networks
+
+networks:
+  app-networks:
+    driver: bridge
