@@ -4,5 +4,5 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install
-ENTRYPOINT [ "npm", "run" "dev"]
+ENTRYPOINT [ "npm", "run", "dev"]
 EXPOSE 3000
