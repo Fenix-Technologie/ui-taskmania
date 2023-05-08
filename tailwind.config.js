@@ -8,24 +8,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        fontRegularColor: '#042C71'
-      }
-    },
-    colors: {
-      orange: {
-        100: '#FFBC95',
-        200: '#F36B1C',
-        300: '#FF5E00'
+        fontRegularColor: '#042C71',
+        orange: {
+          100: '#FFBC95',
+          200: '#F36B1C',
+          300: '#FF5E00'
+        },
+        notification: {
+          warning: '#F06E67',
+          changes: '#F7C374',
+          progress: '#74BAFA',
+          completed: '#80D465'
+        }
       },
-      notification: {
-        warning: '#F06E67',
-        changes: '#F7C374',
-        progress: '#74BAFA',
-        completed: '#80D465'
+      fontFamily: {
+        lexend: "font-family: 'Lexend', sans-serif;"
       }
-    },
-    fontFamily: {
-      lexend: "font-family: 'Lexend', sans-serif;"
     }
   },
   plugins: [
