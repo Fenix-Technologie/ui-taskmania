@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    container_name: taskmaniaApp
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: taskmania-next-image
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - app-networks
+
+networks:
+  app-networks:
+    driver: bridge
