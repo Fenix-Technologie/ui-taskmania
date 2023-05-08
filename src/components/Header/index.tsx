@@ -1,4 +1,4 @@
-import { Logo } from "../../public/Logo";
+import { Logo } from "../../../public/Logo";
 
 export function Header() {
     return (
@@ -9,9 +9,9 @@ export function Header() {
             </div>
             <div className='w-full h-full flex flex-row items-center justify-center gap-x-8'>
                 {/* Só pela estrutura mesmo, depois trocamos pelos links */}
-                <span className='text-fontBlueColor font-lexend text-lg font-semibold'>home</span>
-                <span className='text-fontBlueColor font-lexend text-lg font-semibold'>About</span>
-                <span className='text-fontBlueColor font-lexend text-lg font-semibold'>sing in</span>
+                <span className='text-regular'>Home</span>
+                <span className='text-regular'>About</span>
+                <span className='text-regular'>Sing In</span>
             </div>
         </div>
     )
