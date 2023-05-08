@@ -14,6 +14,14 @@ module.exports = {
           200: '#F36B1C',
           300: '#FF5E00'
         },
+        gray: {
+          50: '#CECECE',
+          90: '#B0B0B0'
+        },
+        blue: {
+          300: '#3060B2',
+          600: '#042C71'
+        },
         notification: {
           warning: '#F06E67',
           changes: '#F7C374',
