@@ -18,7 +18,7 @@ export default function Home() {
     })
 
     const onSubmit = (data: FormData) => {
-        console.log(data)
+        console.log(data, 'oi')
     }
 
 
