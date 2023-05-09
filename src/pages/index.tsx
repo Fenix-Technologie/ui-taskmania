@@ -1,12 +1,9 @@
-import Link from "next/link";
-<<<<<<< HEAD
-import { LogoWhite } from "../../public/LogoWhite";
-=======
-import { Input } from "@/components/Input";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 
 const schema = z.object({
@@ -14,7 +11,6 @@ const schema = z.object({
     password: z.string()
 })
 type FormData = z.infer<typeof schema>;
->>>>>>> b7ff1d0695e8d8ed40925c36240b2bb611307539
 
 export default function Home() {
     const { register, handleSubmit } = useForm<FormData>({
@@ -22,7 +18,7 @@ export default function Home() {
     })
 
     const onSubmit = (data: FormData) => {
-        console.log(data)
+        console.log(data, 'oi')
     }
 
 
