@@ -1,12 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import { Header } from "@/components/Header";
-import { LogoWhite } from "../../public/LogoWhite";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import { LogoWhite } from "../../public/LogoWhite";
 
 export default function Home() {
     return (
@@ -32,8 +25,8 @@ export default function Home() {
                     </div>
                     <button className='rounded-lg py-2 px-10 text-white font-bold font-lexend bg-gradient-to-r from-[#3060B2] via-[#042C71] to-[#3060B2]'>Sing in</button>
                     <span className='text-white font-lexed' >Don’t have an account?
-                    {' '}
-                        <Link href="#" className="text-regular text-white hover:underline"> 
+                        {' '}
+                        <Link href="#" className="text-regular text-white hover:underline">
                             Sign up now!
                         </Link>
                     </span>
