@@ -1,11 +1,11 @@
 import { PremiumIcon, WorkSpaceIcon } from "@/assets/icon";
-import { Button } from "@/components/Button";
 import { Menu } from "@/components/Menu";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
 import * as Separator from "@radix-ui/react-separator";
-
+import { Button } from "@/components/Button";
 
 export default function Home() {
+
     return (
         <main className='w-full h-[calc(100vh-7rem-4rem)] flex flex-col items-center justify-center'>
             <div className="w-full h-full flex flex-row items-center justify-center bg-slate-300 gap-x-14">
