@@ -1,4 +1,5 @@
 import { Logo } from "../../../public/Logo";
+import Link from 'next/link'
 
 export function Header() {
     return (
@@ -9,9 +10,8 @@ export function Header() {
             </div>
             <div className='w-full h-full flex flex-row items-center justify-center gap-x-8'>
                 {/* Só pela estrutura mesmo, depois trocamos pelos links */}
-                <span className='text-regular'>Home</span>
-                <span className='text-regular'>About</span>
-                <span className='text-regular'>Sing In</span>
+                <Link href='/' className='text-regular'>Home</Link>
+                <span className='text-regular'>Sign In</span>
             </div>
         </div>
     )

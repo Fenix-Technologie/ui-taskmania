@@ -20,7 +20,8 @@ module.exports = {
         },
         gray: {
           50: '#CECECE',
-          90: '#B0B0B0'
+          90: '#B0B0B0',
+          95: '#AEAEAE',
         },
         blue: {
           300: '#3060B2',
@@ -52,6 +53,12 @@ module.exports = {
           fontWeight: '600',
           fontSize: '24px',
           lineHeight: '30px'
+        },
+        '.text-menuTitle': {
+          color: '#ffff',
+          fontWeight: '500',
+          lineHeight: '16px',
+          fontSize: '14px',
         }
       })
     })
