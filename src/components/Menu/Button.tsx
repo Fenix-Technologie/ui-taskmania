@@ -3,7 +3,7 @@ import { ReactNode } from "react"
 interface MenuButtonProps {
     text: string
     icon: ReactNode
-    buttonFunction: () => void
+    buttonFunction?: () => void
 }
 
 export function MenuButton({ buttonFunction, icon, text, ...rest }: MenuButtonProps) {
