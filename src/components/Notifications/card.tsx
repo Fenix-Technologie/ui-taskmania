@@ -4,7 +4,8 @@ export function NotificationCard() {
             <section>
                 <img src="" alt="" />
             </section>
-            <section></section>
+            <section>
+            </section>
         </article>
     )
 }

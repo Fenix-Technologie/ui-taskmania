@@ -1,9 +1,12 @@
-import Link from "next/link";
-import { Input } from "@/components/Input";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { authUser } from "@/services/requests/auth/auth";
+import { saveLocalStorage } from "@/utils/saveLocalStorage";
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 
 const schema = z.object({
@@ -13,14 +16,19 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function SignIn() {
+    const router = useRouter()
     const { register, handleSubmit } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
-    const onSubmit = (data: FormData) => {
-        console.log(data)
+    const onSubmit = async (data: FormData) => {
+        const response = await authUser(data);
+        if(response.token) {
+            saveLocalStorage(response.token, '@taskmania:token')
+            saveLocalStorage(response, '@taskmania:user')  
+            router.push('/')     
+        }
     }
-
 
     return (
         <main className='w-full h-[calc(100vh-7rem-4rem)] flex flex-col items-center justify-center bg-slate-300'>
