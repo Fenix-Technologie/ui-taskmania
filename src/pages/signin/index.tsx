@@ -12,7 +12,7 @@ const schema = z.object({
 })
 type FormData = z.infer<typeof schema>;
 
-export default function Home() {
+export default function SignIn() {
     const { register, handleSubmit } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
