@@ -46,7 +46,7 @@ export default function SignIn() {
                     />
                     <span className='text-white font-lexed' >Don’t have an account?
                         {' '}
-                        <Link href="#" className="text-regular text-white hover:underline">
+                        <Link href="/signup" className="text-regular text-white hover:underline">
                             Sign up now!
                         </Link>
                     </span>

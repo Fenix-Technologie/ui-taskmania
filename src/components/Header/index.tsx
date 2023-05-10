@@ -1,7 +1,14 @@
+import { useRouter } from "next/router";
 import { Logo } from "../../../public/Logo";
 import Link from 'next/link'
 
 export function Header() {
+    const { asPath } = useRouter()
+
+    console.log('====================================');
+    console.log(asPath);
+    console.log('====================================');
+
     return (
         <div className="w-full h-28 flex flex-row items-center justify-center bg-white">
             <div className="w-full h-full flex flex-col items-center justify-center">
@@ -11,7 +18,8 @@ export function Header() {
             <div className='w-full h-full flex flex-row items-center justify-center gap-x-8'>
                 {/* Só pela estrutura mesmo, depois trocamos pelos links */}
                 <Link href='/' className='text-regular'>Home</Link>
-                <span className='text-regular'>Sign In</span>
+                {asPath !== '/signin' ? <Link href='/signin' className='text-regular'>Sign In</Link>
+                    : <Link href='/signup' className="text-regular">Sign Up</Link>}
             </div>
         </div>
     )

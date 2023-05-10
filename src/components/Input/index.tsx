@@ -18,11 +18,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ Placeholder, Ty
         <div className="w-full flex flex-col items-start justify-start">
           <label htmlFor="" className="text-regular font-semibold font-lexend text-base justify-self-start">{Label}</label>
         </div>
-        <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full flex flex-col items-center justify-center min-h-[calc(56px-16px)]  relative">
           <input placeholder={Placeholder} type={Type}
-            className={`rounded-lg w-full h-[52px] border-gray-90 border-[1px] drop-shadow-md placeholder:text-gray-50 px-4 ${Type == 'password' ? 'placeholder:tracking-[0.5rem]' : 'placeholder:tracking-normal'
+            className={`rounded-lg w-full h-10 border-gray-90 border-[1px] drop-shadow-md placeholder:text-gray-50 px-4 ${Type == 'password' ? 'placeholder:tracking-[0.5rem]' : 'placeholder:tracking-normal'
               }`} ref={ref} {...rest} />
-          {errorMessage && <h1 className='text-red-800 text-xs '>{errorMessage}</h1>}
+          <span className='text-gray-200 text-xs absolute -bottom-4 left-1'>{errorMessage}</span>
         </div>
       </div>
     </div>
