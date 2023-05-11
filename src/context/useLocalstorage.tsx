@@ -19,7 +19,7 @@ export function CustomLocalStorageProvider({ children }: customLocalStorageProvi
     const [user, setUser] = useState<IUser>({} as IUser)
 
     const setLocalStorage = (data: any, key: string) => {
-        localStorage.setItem(JSON.stringify(data), key)
+        localStorage.setItem(key, JSON.stringify(data))
     }
 
     const getLocalStorage = (key: string) => {

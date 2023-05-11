@@ -6,6 +6,7 @@ interface authUserProps {
 }
 
 type Tresponse = {
+    id: string;
     name: string;
     email: string;
     avatar: string;
