@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ Placeholder, Ty
           <input placeholder={Placeholder} type={Type}
             className={`rounded-lg w-full h-10 border-gray-90 border-[1px] drop-shadow-md placeholder:text-gray-50 px-4 ${Type == 'password' ? 'placeholder:tracking-[0.5rem]' : 'placeholder:tracking-normal'
               }`} ref={ref} {...rest} />
-          <span className='text-gray-200 text-xs absolute -bottom-4 left-1'>{errorMessage}</span>
+          <span className='text-gray-400 text-xs absolute -bottom-4 left-1'>{errorMessage}</span>
         </div>
       </div>
     </div>

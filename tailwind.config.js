@@ -59,6 +59,9 @@ module.exports = {
           fontWeight: '500',
           lineHeight: '16px',
           fontSize: '14px',
+        },
+        '.text-shadow': {
+          textShadow: '#000 1px 1px 0'
         }
       })
     })

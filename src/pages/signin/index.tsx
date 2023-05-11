@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { useLocalStorage } from "@/context/useLocalstorage";
 import { authUser } from "@/services/requests/auth/auth";
-import { saveLocalStorage } from "@/utils/saveLocalStorage";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function SignIn() {
     const router = useRouter()
+    const {setLocalStorage, setUserFromLocalStorage} = useLocalStorage()
     const { register, handleSubmit } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
@@ -24,8 +25,9 @@ export default function SignIn() {
     const onSubmit = async (data: FormData) => {
         const response = await authUser(data);
         if(response.token) {
-            saveLocalStorage(response.token, '@taskmania:token')
-            saveLocalStorage(response, '@taskmania:user')  
+            setLocalStorage(response.token, '@taskmania:token')
+            setLocalStorage(response, '@taskmania:user')  
+            setUserFromLocalStorage(response)
             router.push('/')     
         }
     }
