@@ -1,12 +1,11 @@
+import Link from 'next/link';
 import { useRouter } from "next/router";
 import { Logo } from "../../../public/Logo";
-import Link from 'next/link'
-import { loadingLocalStorage } from "@/utils/loadingLocalStorage";
+import { useLocalStorage } from '@/context/useLocalstorage';
 
 export function Header() {
     const { asPath } = useRouter()
-
-    const user = loadingLocalStorage('@taskmania:user')
+    const { user } = useLocalStorage()
 
     return (
         <div className="w-full h-28 flex flex-row items-center justify-center bg-white">
