@@ -1,9 +1,11 @@
-import Link from "next/link";
-import { Input } from "@/components/Input";
-import { useForm, SubmitHandler, FieldError } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { useLocalStorage } from "@/context/useLocalstorage";
+import { createUser } from "@/services/requests/users/createUser";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 
 const schema = z.object({
@@ -18,12 +20,22 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function SignUp() {
+    const router = useRouter()
+    const { setUserFromLocalStorage } = useLocalStorage()
+    const { setLocalStorage } = useLocalStorage()
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
-    const onSubmit = (data: FormData) => {
-        console.log(data)
+    const onSubmit = async (data: FormData) => {
+        const response = await createUser(data)
+        if (response.token) {
+            setLocalStorage(response.token, '@taskmania:token')
+            setLocalStorage(response, '@taskmania:user')
+            setUserFromLocalStorage(response)
+            router.push('/')
+        }
+
     }
 
 

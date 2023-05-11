@@ -1,13 +1,11 @@
+import Link from 'next/link';
 import { useRouter } from "next/router";
 import { Logo } from "../../../public/Logo";
-import Link from 'next/link'
+import { useLocalStorage } from '@/context/useLocalstorage';
 
 export function Header() {
     const { asPath } = useRouter()
-
-    console.log('====================================');
-    console.log(asPath);
-    console.log('====================================');
+    const { user } = useLocalStorage()
 
     return (
         <div className="w-full h-28 flex flex-row items-center justify-center bg-white">
@@ -19,7 +17,7 @@ export function Header() {
                 {/* Só pela estrutura mesmo, depois trocamos pelos links */}
                 <Link href='/' className='text-regular'>Home</Link>
                 {asPath !== '/signin' ? <Link href='/signin' className='text-regular'>Sign In</Link>
-                    : <Link href='/signup' className="text-regular">Sign Up</Link>}
+                    : (!user ? <Link href='/signup' className="text-regular">Sign Up</Link> : <span className="text-regular">my account</span>)}
             </div>
         </div>
     )
