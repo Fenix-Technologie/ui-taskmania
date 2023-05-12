@@ -1,16 +1,15 @@
 import { api } from "@/services/api";
 
-interface BoardProps{
-    title: string;
-    backgroundURL: string;
-    description: string;
-    userId: string;
+interface BoardProps {
+  title: string;
+  backgroundURL: string;
+  description: string;
 }
 
-export async function createBoard(body: BoardProps){
-    const response = await api.post<BoardProps>('/boards/',{
-        ...body
-    })
+export async function createBoard(body: BoardProps) {
+  const response = await api.post<BoardProps>("/boards/", {
+    ...body,
+  });
 
-    return response.data
+  return response.data;
 }

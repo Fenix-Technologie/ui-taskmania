@@ -16,12 +16,13 @@ export function Menu() {
         }]
     return (
         <nav className="w-full flex flex-col items-start justify-start gap-y-2">
-            <Modal
-                children={<MenuButton
+            <Modal>
+                <MenuButton
                     text="New board"
                     icon={<NewBoardIcon />}
-                />}
-            />
+                />
+            </Modal>
+
             {currentMenuOptions.map(e =>
                 <MenuButton
                     text={e.text}

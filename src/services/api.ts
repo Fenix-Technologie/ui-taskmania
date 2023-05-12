@@ -1,28 +1,11 @@
 import axios from "axios";
+import { parseCookies } from "nookies";
 
-const token = localStorage.getItem('@taskmania:token') || ''
-
-let authToken = localStorage.getItem('@taskmania:token')
-? JSON.parse(localStorage.getItem("@taskmania:token") || '')
-: null
+const { "taskmania:token": token } = parseCookies();
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3333/api',
+  baseURL: "http://localhost:3333/api",
   headers: {
-    'Authorization': 'Bearer ' + authToken
-  }
+    Authorization: "Bearer " + token,
+  },
 });
-
-// api.interceptors.request.use((config) => {
-//   const token = localStorage.getItem('@taskmania:token')
-//   ? JSON.parse(localStorage.getItem("@taskmania:token") || '')
-//   : null
-
-//   console.log(token)
-
-//   if(token != ''){
-//     api.defaults.headers.authorization = 'Bearer ' + token
-//   }
-
-//   return config
-// })

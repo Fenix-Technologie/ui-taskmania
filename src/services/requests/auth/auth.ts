@@ -1,22 +1,18 @@
-import { api } from '../../api'
-
-interface authUserProps {
-    email: string;
-    password: string
-}
+import { IauthUser } from "@/@types/user";
+import { api } from "../../api";
 
 type Tresponse = {
-    id: string;
-    name: string;
-    email: string;
-    avatar: string;
-    token: string;
-}
+  _id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  token: string;
+};
 
-export const authUser = async (body: authUserProps) => {
-    const response = await api.post<Tresponse>("/auth/", {
-        ...body
-    })
+export const authUser = async (body: IauthUser) => {
+  const response = await api.post<Tresponse>("/auth/", {
+    ...body,
+  });
 
-    return response.data
-} 
+  return response.data;
+};
