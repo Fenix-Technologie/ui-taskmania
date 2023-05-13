@@ -1,10 +1,24 @@
+import { Iboard } from "@/@types/boards";
 import { PremiumIcon, WorkSpaceIcon } from "@/assets/icon";
+import { Button } from "@/components/Button";
 import { Menu } from "@/components/Menu";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
+import { getYourBoards } from "@/services/requests/boards/getYourBoards";
 import * as Separator from "@radix-ui/react-separator";
-import { Button } from "@/components/Button";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+    const [data, setData] = useState<Iboard[] | undefined>()
+
+    useEffect(() => {
+        async function getData() {
+            const response = await getYourBoards()
+            setData(response)
+        }
+        getData()
+    }, [])
 
     return (
         <main className='w-full h-[calc(100vh-7rem-4rem)] flex flex-col items-center justify-center'>
@@ -44,11 +58,31 @@ export default function Home() {
                     <header>
                         <h1 className="text-title">Your boards</h1>
                     </header>
-                    <main className='bg-white w-[668px] h-full flex flex-col items-center justify-center rounded-[10px] overflow-auto gap-y-9'>
-                        <WorkspaceCard />
+                    <main className='bg-white w-[668px] h-[calc(100vh-7rem-4rem-42px-60px-30px)] grid grid-cols-1 items-center justify-center rounded-[10px] overflow-auto'>
+                        {data?.map((el: Iboard) => (
+                            <WorkspaceCard backgroundURL={el.backgroundURL} boardName={el.title} boardDescription={el.description} notifications={el.activity} />
+                        ))
+                        }
                     </main>
                 </section>
             </div>
         </main >
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const { ['taskmania:token']: token } = parseCookies(ctx)
+
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/signin',
+                permanent: false,
+            }
+        }
+    }
+
+    return {
+        props: {}
+    }
 }
