@@ -9,8 +9,10 @@ module.exports = {
     extend: {
       colors: {
         blue: {
+          10: '#C1EAFC',
           100: '#3060B2',
-          800: '#042C71'
+          800: '#015C86',
+          900: '#042C71'
         },
         fontRegularColor: '#042C71',
         orange: {
