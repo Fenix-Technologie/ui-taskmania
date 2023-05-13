@@ -58,9 +58,12 @@ export default function Home() {
                     <header>
                         <h1 className="text-title">Your boards</h1>
                     </header>
-                    <main className='bg-white w-[668px] h-[calc(100vh-7rem-4rem-42px-60px-30px)] grid grid-cols-1 items-center justify-center rounded-[10px] overflow-auto'>
-                        {data?.map((el: Iboard) => (
-                            <WorkspaceCard backgroundURL={el.backgroundURL} boardName={el.title} boardDescription={el.description} notifications={el.activity} />
+                    <main className='bg-white w-[668px] h-[calc(100vh-7rem-4rem-42px-60px-30px)] px-8 py-6 grid grid-cols-1 items-center justify-center rounded-[10px] overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100 '>
+                        {data?.map((el: Iboard, index) => (
+                            <>
+                                <WorkspaceCard backgroundURL={el.backgroundURL} boardName={el.title} boardDescription={el.description} notifications={el.activity} id={el._id} />
+                                {data.length > index + 1 && <Separator.Root className="bg-gray-40 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />}
+                            </>
                         ))
                         }
                     </main>

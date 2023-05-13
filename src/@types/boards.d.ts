@@ -11,6 +11,7 @@ export type TmembersBoard = {
 };
 
 export interface Iboard {
+  _id: string;
   title: string;
   description: string;
   lists: string[];

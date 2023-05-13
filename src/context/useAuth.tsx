@@ -30,8 +30,6 @@ export function AuthProvider({ children }: authProviderProps) {
 
     const [user, setUser] = useState<IUser | null>(null)
     const [avatarColor, setAvatarColor] = useState<TAvatarColors | null>(null)
-
-    console.log(user);
     const isAuthenticated = !!user
 
     useEffect(() => {
