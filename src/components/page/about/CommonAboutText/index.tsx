@@ -5,7 +5,7 @@ interface CommonAboutText {
 
 export function CommonAboutText({ title, text }: CommonAboutText) {
   return (
-    <div className="w-full h-fit flex flex-col justify-start gap-3">
+    <div className="w-full h-fit flex flex-col justify-start gap-3 mt-[20px]">
       <h4 className="text-about text-sm">{title}</h4>
       <p className="text-about text-justify">{text}</p>
     </div>
