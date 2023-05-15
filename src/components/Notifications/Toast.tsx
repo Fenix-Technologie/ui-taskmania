@@ -4,13 +4,12 @@ import * as ToastRadix from '@radix-ui/react-toast';
 interface ToastProps {
     error: boolean
     message: string
+    description: string
 }
 
-export const Toast = ({ error, message }: ToastProps) => {
+export const Toast = ({ error, message, description }: ToastProps) => {
     const [open, setOpen] = React.useState(false);
-    const [click, setClick] = React.useState()
     const eventDateRef = React.useRef(new Date());
-    const [word, setWord] = React.useState('')
     const timerRef = React.useRef(0);
 
     React.useEffect(() => {
@@ -28,12 +27,11 @@ export const Toast = ({ error, message }: ToastProps) => {
                     {message}
                 </ToastRadix.Title>
                 <ToastRadix.Description asChild>
-                    <time
+                    <span
                         className="[grid-area:_description] m-0 text-slate11 text-[13px] leading-[1.3]"
-                        dateTime={Date()}
                     >
-                        {prettyDate(eventDateRef.current)}
-                    </time>
+                        {description}
+                    </span>
                 </ToastRadix.Description>
                 <ToastRadix.Action className="[grid-area:_action]" asChild altText="Goto schedule to undo">
                     <button className="inline-flex items-center justify-center rounded font-medium text-xs px-[10px] leading-[25px] h-[25px] bg-green2 text-green11 shadow-[inset_0_0_0_1px] shadow-green7 hover:shadow-[inset_0_0_0_1px] hover:shadow-green8 focus:shadow-[0_0_0_2px] focus:shadow-green8">

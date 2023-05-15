@@ -3,7 +3,6 @@ import { Input } from "@/components/Input";
 import { Toast } from "@/components/Notifications/Toast";
 import { useAuth } from "@/context/useAuth";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { error } from "console";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -29,7 +28,7 @@ export default function SignIn({ error }: SingInProps) {
     const [erro, setError] = useState(false)
     console.log(erro)
 
-    error = <Toast error={erro} message="Email ou senha incorretos" />
+    error = <Toast error={erro} message="Email ou senha incorretos" description="Por favor tente novamente" />
 
     const auth = async (data: FormData) => {
         try {
