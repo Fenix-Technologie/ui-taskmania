@@ -1,17 +1,18 @@
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
-import { CustomLocalStorageProvider } from '@/context/useLocalstorage'
+import { AuthProvider } from '@/context/useAuth'
+
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Header />
-      <CustomLocalStorageProvider>
+      <AuthProvider>
+        <Header />
         <Component {...pageProps} />
-      </CustomLocalStorageProvider>
-      <Footer />
+        <Footer />
+      </AuthProvider>
     </>
   )
 }

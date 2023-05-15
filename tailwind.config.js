@@ -10,8 +10,10 @@ module.exports = {
       colors: {
         blue: {
           10: '#C1EAFC',
+          10: '#C1EAFC',
           100: '#3060B2',
           800: '#015C86',
+          900: '#015C86',
           900: '#042C71'
         },
         fontRegularColor: '#042C71',
@@ -25,6 +27,7 @@ module.exports = {
           50: '#CECECE',
           90: '#B0B0B0',
           95: '#AEAEAE',
+          995: '#0C0C0C',
           99: '#B8B8B8'
         },
         blue: {
@@ -72,3 +75,4 @@ module.exports = {
 
   ]
 }
+

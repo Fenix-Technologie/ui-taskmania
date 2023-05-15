@@ -1,15 +1,17 @@
 import { PaintBrushIcon } from '@/assets/icon';
+import { useAuth } from '@/context/useAuth';
+import { createBoard } from '@/services/requests/boards/create';
+import { zodResolver } from '@hookform/resolvers/zod';
 import * as Dialog from '@radix-ui/react-dialog';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactNode, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Router, useRouter } from 'next/router';
 
 interface ModalProps {
-    children: JSX.Element
+    children: ReactNode;
 }
 
 const schema = z.object({
@@ -25,15 +27,20 @@ const Modal = ({ children }: ModalProps) => {
 
     const [color, setColor] = useState('#FF5E00')
 
-    const { register, handleSubmit, formState: { errors }, reset} = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
-    const onSubmit = async (data: FormData) => {
+    const handleCreateBoard = async (data: FormData) => {
+        const response = await createBoard({
+            backgroundURL: color,
+            title: data.name,
+            description: data.description || '',
+        })
+        console.log(response);
+
         reset()
         router.push('/signup')
-        
-        //console.log('close')
     }
     return (
         <Dialog.Root>
@@ -48,9 +55,9 @@ const Modal = ({ children }: ModalProps) => {
                             <PaintBrushIcon />
                             Update cover color
                         </label>
-                        <input id="color-input" value={color} className="opacity-0 absolute -left-9999" type="color" onChange={(e) => setColor(e.target.value)}  />
+                        <input id="color-input" value={color} className="opacity-0 absolute -left-9999" type="color" onChange={(e) => setColor(e.target.value)} />
                     </Dialog.Title>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(handleCreateBoard)}>
 
                         <fieldset className="mb-[15px] flex flex-col items-center justify-center pt-3 gap-5">
                             <Input

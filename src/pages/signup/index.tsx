@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { useLocalStorage } from "@/context/useLocalstorage";
+import { useAuth } from "@/context/useAuth";
 import { createUser } from "@/services/requests/users/createUser";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from "next/router";
@@ -21,21 +21,18 @@ type FormData = z.infer<typeof schema>;
 
 export default function SignUp() {
     const router = useRouter()
-    const { setUserFromLocalStorage } = useLocalStorage()
-    const { setLocalStorage } = useLocalStorage()
+    const { handleSignIn } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
     const onSubmit = async (data: FormData) => {
-        const response = await createUser(data)
-        if (response.token) {
-            setLocalStorage(response.token, '@taskmania:token')
-            setLocalStorage(response, '@taskmania:user')
-            setUserFromLocalStorage(response)
-            router.push('/')
+        try {
+            const response = await createUser(data) 
+            await handleSignIn({ ...response, password: data.password })
+        } catch (error) {
+            
         }
-
     }
 
 
@@ -47,7 +44,7 @@ export default function SignUp() {
                         <img src="./task-white 2.png" alt="" width={230} height={27} className="self-center" />
                         <Input
                             {...register('name')}
-                            Label="Name"
+                            Label="Full Name"
                             Type="text"
                             Placeholder="John Doe"
                             errorMessage={errors.name?.message}
