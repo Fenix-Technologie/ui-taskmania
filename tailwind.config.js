@@ -9,8 +9,12 @@ module.exports = {
     extend: {
       colors: {
         blue: {
+          10: '#C1EAFC',
+          10: '#C1EAFC',
           100: '#3060B2',
-          800: '#042C71'
+          800: '#015C86',
+          900: '#015C86',
+          900: '#042C71'
         },
         fontRegularColor: '#042C71',
         orange: {
@@ -20,10 +24,12 @@ module.exports = {
         },
         gray: {
           40: '#e8e8e8',
+          49: '#EBEBEB',
           50: '#CECECE',
           90: '#B0B0B0',
           95: '#AEAEAE',
           995: '#0C0C0C',
+          99: '#B8B8B8'
         },
         blue: {
           300: '#3060B2',
@@ -82,3 +88,4 @@ module.exports = {
     require('tailwind-scrollbar')({ nocompatible: true }),
   ]
 }
+
