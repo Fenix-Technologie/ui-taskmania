@@ -38,7 +38,7 @@ const Modal = ({ children }: ModalProps) => {
             description: data.description || '',
         })
         reset()
-        router.push('/signup')
+        router.push(`/board/${response._id}`)
     }
     return (
         <Dialog.Root>

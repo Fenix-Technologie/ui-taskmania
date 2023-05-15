@@ -10,7 +10,7 @@ interface WorkspaceCardprops {
     notifications: TactivityBoard[]
 }
 
-export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription }: WorkspaceCardprops) {
+export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription, notifications }: WorkspaceCardprops) {
     return (
         <article className="w-full h-full grid grid-cols-2 items-center justify-center rounded-lg">
             <Link href={`/board/${id}`}>
@@ -28,7 +28,10 @@ export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription }
             </Link>
 
             <section className="w-full flex flex-col items-center justify-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100 ">
-                <NotificationCard />
+                {notifications.map((notfication) =>
+                    <NotificationCard key={`${notfication.date}`} text={notfication.text} />
+                )
+                }
             </section>
         </article>
     )

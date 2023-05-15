@@ -1,4 +1,4 @@
-import { CommonAboutText } from "@/components/page/about/CommonAboutText";
+import { CommonAboutText } from "@/components/Page/about/CommonAboutText";
 
 export default function about() {
 
