@@ -5,14 +5,10 @@ import { Menu } from "@/components/Menu";
 import { WorkspaceCard } from "@/components/WorkspaceCard";
 import { getYourBoards } from "@/services/requests/boards/getYourBoards";
 import * as Separator from "@radix-ui/react-separator";
-<<<<<<< HEAD
-import { Button } from "@/components/Button";
 import { Aside } from "@/components/Menu/Aside";
-=======
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
->>>>>>> main
 
 export default function Home() {
     const [data, setData] = useState<Iboard[] | undefined>()

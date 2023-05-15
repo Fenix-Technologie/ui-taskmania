@@ -23,11 +23,8 @@ module.exports = {
           300: '#FF5E00'
         },
         gray: {
-<<<<<<< HEAD
           20: '#F0F0F0',
-=======
           40: '#e8e8e8',
->>>>>>> main
           49: '#EBEBEB',
           50: '#CECECE',
           90: '#B0B0B0',
