@@ -4,6 +4,7 @@ import { Logo } from "../../../public/Logo";
 import { useAuth } from '../../context/useAuth';
 import { Avatar } from '../Avatar';
 import { DropDownUser } from './DropDownUser';
+import { SigninIcon } from '@/assets/icon';
 
 
 export function Header() {
@@ -18,17 +19,27 @@ export function Header() {
             </div>
             <div className='w-full h-full flex flex-row items-center justify-center gap-x-8'>
                 {/* Só pela estrutura mesmo, depois trocamos pelos links */}
-                <Link href='/' className='text-regular'>Home</Link>
+                {user && <Link href='/' className='text-regular'>Home</Link>}
+                <Link href='/about' className='text-regular'>About</Link>
 
                 {!!user ? (
                     <DropDownUser>
                         <button className='flex flex-row gap-2 items-center  text-regular '>
-                            my account
+                            My account
                             <Avatar name={user?.name || ""} size='30px' />
                         </button>
                     </DropDownUser>
-                ) : (asPath !== '/signin' ? <Link href='/signin' className='text-regular'>Sign In</Link>
-                    : <Link href='/signup' className="text-regular">Sign Up</Link>)
+                ) : (asPath !== '/signin' ?
+                    <Link href='/signin' className='flex flex-row gap-3 items-center'>
+                        <span className='text-regular'>
+                            Sign In
+                        </span>
+                        <SigninIcon />
+                    </Link>
+                    :
+                    <Link href='/signup' className="text-regular">
+                        Sign Up
+                    </Link>)
                 }
             </div>
         </div>

@@ -23,6 +23,7 @@ module.exports = {
           300: '#FF5E00'
         },
         gray: {
+          40: '#e8e8e8',
           49: '#EBEBEB',
           50: '#CECECE',
           90: '#B0B0B0',
@@ -55,11 +56,23 @@ module.exports = {
           lineHeight: '22px',
           fontSize: '18px'
         },
+        '.text-about': {
+          color: '#404040',
+          fontWeight: '400',
+          fontSize: '12px',
+          lineHeight: '16px',
+        },
         '.text-title': {
           color: '#042C71',
           fontWeight: '600',
           fontSize: '24px',
           lineHeight: '30px'
+        },
+        '.text-title-about': {
+          color: '#042C71',
+          fontWeight: '700',
+          fontSize: '16px',
+          lineHeight: '20px'
         },
         '.text-menuTitle': {
           color: '#ffff',
@@ -69,10 +82,10 @@ module.exports = {
         },
         '.text-shadow': {
           textShadow: '#000 1px 1px 0'
-        }
+        },
       })
-    })
-
+    }),
+    require('tailwind-scrollbar')({ nocompatible: true }),
   ]
 }
 

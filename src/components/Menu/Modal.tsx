@@ -37,8 +37,6 @@ const Modal = ({ children }: ModalProps) => {
             title: data.name,
             description: data.description || '',
         })
-        console.log(response);
-
         reset()
         router.push('/signup')
     }

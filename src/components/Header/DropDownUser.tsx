@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { AccountCircleIcon, SignOutIcon } from '@/assets/icon';
+import { AccountCircleIcon, OptionsIcon, SignOutIcon } from '@/assets/icon';
 import { useAuth } from '@/context/useAuth';
 import { initialsLetter } from '@/utils/initialsLetter';
 import { Avatar } from '../Avatar';
@@ -10,7 +10,7 @@ interface DropDownUserProps {
 }
 
 export const DropDownUser = ({ children }: DropDownUserProps) => {
-  const { user } = useAuth()
+  const { handleSignOut } = useAuth()
 
   return (
     <DropdownMenu.Root>
@@ -32,10 +32,16 @@ export const DropDownUser = ({ children }: DropDownUserProps) => {
             </span>
           </DropdownMenu.Item>
           <DropdownMenu.Item className="w-full h-5 flex flex-row items-center justify-start gap-1">
-            <SignOutIcon />
+            <OptionsIcon />
             <span className='text-regular text-sm text-white'>
-              Sign Out
+              Options
             </span>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item className="w-full h-5 flex flex-row items-center justify-start gap-1 ml-[6px]">
+            <SignOutIcon />
+            <button onClick={handleSignOut} className='text-regular text-sm text-white'>
+              Sign Out
+            </button>
           </DropdownMenu.Item>
           <DropdownMenu.Arrow className="fill-gray-995" />
         </DropdownMenu.Content>

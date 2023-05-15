@@ -1,10 +1,11 @@
 import { IUser, IauthUser } from "@/@types/user";
 import { authUser } from "@/services/requests/auth/auth";
-import { setCookie, parseCookies } from "nookies";
+import { setCookie, parseCookies, destroyCookie } from "nookies";
 import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from "react";
 import Router from 'next/router'
 import { refreshUser } from "@/services/requests/users/refreshUser";
 import { randomColorGenerator } from "@/utils/randomColorGenerator";
+import { api } from "@/services/api";
 
 
 type TAvatarColors = {
@@ -20,6 +21,7 @@ interface IContext {
     avatarColor: TAvatarColors | null
     isAuthenticated: boolean;
     handleSignIn: (data: IauthUser) => Promise<void>;
+    handleSignOut: () => void;
 }
 
 const authContext = createContext({} as IContext)
@@ -27,9 +29,7 @@ const authContext = createContext({} as IContext)
 export function AuthProvider({ children }: authProviderProps) {
 
     const [user, setUser] = useState<IUser | null>(null)
-    const [avatarColor, setAvatarColor] = useState<TAvatarColors | null>( null)
-
-    console.log(user);
+    const [avatarColor, setAvatarColor] = useState<TAvatarColors | null>(null)
     const isAuthenticated = !!user
 
     useEffect(() => {
@@ -57,9 +57,16 @@ export function AuthProvider({ children }: authProviderProps) {
                 {
                     maxAge: 60 * 60 * 24 // 1 dia
                 })
+            api.defaults.headers['Authorization'] = 'Bearer ' + token
             setUser(rest)
             Router.push('/')
         }
+    }
+
+    const handleSignOut = async () => {
+        destroyCookie(undefined, 'taskmania:token')
+        setUser(null)
+        Router.push('/')
     }
 
 
@@ -69,7 +76,8 @@ export function AuthProvider({ children }: authProviderProps) {
                 user,
                 avatarColor,
                 isAuthenticated,
-                handleSignIn
+                handleSignIn,
+                handleSignOut
             }}
         >
             {children}
