@@ -68,6 +68,7 @@ export default function SignIn({ error }: SingInProps) {
                             Sign up now!
                         </Link>
                     </span>
+                    <Link href='/edit'>Edit</Link>
                 </form>
                 {error}
             </section>
