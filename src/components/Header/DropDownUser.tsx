@@ -4,6 +4,7 @@ import { AccountCircleIcon, OptionsIcon, SignOutIcon } from '@/assets/icon';
 import { useAuth } from '@/context/useAuth';
 import { initialsLetter } from '@/utils/initialsLetter';
 import { Avatar } from '../Avatar';
+import Link from 'next/link';
 
 interface DropDownUserProps {
   children: ReactNode
@@ -33,9 +34,9 @@ export const DropDownUser = ({ children }: DropDownUserProps) => {
           </DropdownMenu.Item>
           <DropdownMenu.Item className="w-full h-5 flex flex-row items-center justify-start gap-1">
             <OptionsIcon />
-            <span className='text-regular text-sm text-white'>
+            <Link href='/edit' className='text-regular text-sm text-white'>
               Options
-            </span>
+            </Link >
           </DropdownMenu.Item>
           <DropdownMenu.Item className="w-full h-5 flex flex-row items-center justify-start gap-1 ml-[6px]">
             <SignOutIcon />
