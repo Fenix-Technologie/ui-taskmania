@@ -14,11 +14,6 @@ interface customIconAndColor {
 export function NotificationCard({ text }: NotificationCardProps) {
     const [customIconAndColor, setCustomIconAndColor] = useState<customIconAndColor>();
 
-
-    console.log(text);
-    console.log(customIconAndColor);
-
-
     useEffect(() => {
         switch (text.toLocaleLowerCase().split(':')[0]) {
             case 'notify':

@@ -4,7 +4,7 @@ import { Toast } from "@/components/Notifications/Toast";
 import { useAuth } from "@/context/useAuth";
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,19 +25,26 @@ export default function SignIn({ error }: SingInProps) {
         resolver: zodResolver(schema)
     })
 
-    const [erro, setError] = useState(false)
-    console.log(erro)
+    const handleCloseError = useCallback(() => {
+        setError(false)
+    }, [])
 
-    error = <Toast error={erro} message="Email ou senha incorretos" description="Por favor tente novamente" />
+    const [erro, setError] = useState(false)
+
+    error = <Toast error={erro} message="Email ou senha incorretos" description="Por favor tente novamente" handleClose={handleCloseError} color="#F06E67" />
 
     const auth = async (data: FormData) => {
         try {
             await handleSignIn(data)
         } catch (err) {
             setError(true)
-            console.log(error)
+            setTimeout(() => {
+                setError(false)
+            }, 5000);
         }
     }
+
+
 
     return (
         <main className='w-full h-[calc(100vh-7rem-4rem)] flex flex-col items-center justify-center bg-slate-300'>
@@ -68,7 +75,6 @@ export default function SignIn({ error }: SingInProps) {
                             Sign up now!
                         </Link>
                     </span>
-                    <Link href='/edit'>Edit</Link>
                 </form>
                 {error}
             </section>
