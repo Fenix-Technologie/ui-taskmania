@@ -27,7 +27,7 @@ export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription, 
                 </section>
             </Link>
 
-            <section className="w-full flex flex-col items-center justify-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100 ">
+            <section className="w-full max-h-[184px] grid items-center justify-center gap-1 overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100 ">
                 {notifications.map((notfication) =>
                     <NotificationCard key={`${notfication.date}`} text={notfication.text} />
                 )
