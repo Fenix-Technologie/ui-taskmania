@@ -4,12 +4,12 @@ import { MenuButton } from "@/components/Menu/Button";
 
 export function List() {
     return (
-        <main className="w-[270px] h-[540px] flex flex-col items-center px-3 justify-center rounded-[10px] bg-white border-[1px] border-solid border-gray-85">
-            <section className="items-center gap-x-40 py-6 flex flex-row">
+        <main className="w-[330px] h-[540px] flex flex-col items-center px-3 justify-center rounded-[10px] bg-white border-[1px] border-solid border-gray-85">
+            <section className="w-full items-center p-6 flex flex-row justify-between">
                 <h1 className='text-menuTitle text-blue-900'>List Title</h1>
                 <MenuList />
             </section>
-            <section className="w-full h-full flex flex-col gap-y-[10px] py-2 items-center overflow-auto">
+            <section className="w-full h-full flex flex-col gap-y-[10px] p-2 items-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100">
                 <Card />
                 <Card />
                 <Card />
