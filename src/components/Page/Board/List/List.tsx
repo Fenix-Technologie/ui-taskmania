@@ -1,6 +1,7 @@
 import { MenuList, NewBoardIcon } from "@/assets/icon";
 import { Card } from "../Card/Card";
 import { MenuButton } from "@/components/Menu/Button";
+import { CardModal } from "../Card/Modal";
 
 export function List() {
     return (
@@ -10,7 +11,7 @@ export function List() {
                 <MenuList />
             </section>
             <section className="w-full h-full flex flex-col gap-y-[10px] p-2 items-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100">
-                <Card />
+                <CardModal />
                 <Card />
                 <Card />
                 <Card />

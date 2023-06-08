@@ -3,6 +3,7 @@ import { CheckBox } from "@/components/CheckBox";
 
 
 export function Card() {
+    //stop propagation
     return (
         <main className="w-full h-[60px] rounded-lg bg-blue-300 flex flex-row items-center justify-center">
             <div className="w-full flex flex-row items-center justify-between p-2">
