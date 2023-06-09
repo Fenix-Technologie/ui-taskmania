@@ -1,3 +1,5 @@
+import { IList } from "./list";
+
 export type TactivityBoard = {
   text: string;
   date: Date;
@@ -14,7 +16,7 @@ export interface Iboard {
   _id: string;
   title: string;
   description: string;
-  lists: string[];
+  lists: IList[];
   activity: TactivityBoard[];
   backgroundURL: string;
   members: TmembersBoard[];

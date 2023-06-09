@@ -5,7 +5,7 @@ import { CardModal } from "../Card/Modal";
 
 export function List() {
     return (
-        <main className="w-[330px] h-[540px] flex flex-col items-center px-3 justify-center rounded-[10px] bg-white border-[1px] border-solid border-gray-85">
+        <main className="min-w-[330px] h-[540px] flex flex-col items-center px-3 justify-center rounded-[10px] bg-white border-[1px] border-solid border-gray-85">
             <section className="w-full items-center p-6 flex flex-row justify-between">
                 <h1 className='text-menuTitle text-blue-900'>List Title</h1>
                 <MenuList />
@@ -34,7 +34,7 @@ export function List() {
                     icon={<NewBoardIcon />}
                     buttonFunction={() => console.log('oi')}
                     key={'oi'}
-                    text="Add new task or card"
+                    text="Add new task"
                 />
             </section>
         </main>
