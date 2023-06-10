@@ -14,13 +14,15 @@ interface ListProps {
 
 export function List({ list }: ListProps) {
   const [inputTitle, setInputTitle] = useState(list.title);
-  const { handleListTitle } = useContext(BoardContext);
+  const { handleListTitle, handleCreateNewTask } = useContext(BoardContext);
 
-const {query: {id}} = useRouter()
+  const {
+    query: { id },
+  } = useRouter();
 
   const listTitleChanged = useCallback(() => {
     if (inputTitle !== list.title && inputTitle !== "") {
-      handleListTitle(inputTitle, list._id, String(id) );
+      handleListTitle(inputTitle, list._id, String(id));
     }
   }, [inputTitle]);
 
@@ -37,28 +39,18 @@ const {query: {id}} = useRouter()
         <MenuList />
       </section>
       <section className="w-full h-full flex flex-col gap-y-[10px] p-2 items-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100">
-        <CardModal />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-
-        <Card />
-
-        <Card />
+        {
+            list?.cards && 
+        list.cards.map((card) => (
+          <CardModal key={card._id} card={card} />
+        ))}
       </section>
       <section className="py-4">
         <MenuButton
           icon={<NewBoardIcon />}
-          buttonFunction={() => console.log("oi")}
-          key={"oi"}
+          buttonFunction={() =>
+            handleCreateNewTask("Digite o título da task", list._id, String(id))
+          }
           text="Add new task"
         />
       </section>
