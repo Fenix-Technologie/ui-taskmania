@@ -1,14 +1,13 @@
+import { Avatar } from "@/components/Avatar";
+import { BoardContext } from "@/context/BoardContext";
+import { RenameBoard } from "@/services/requests/boards/RenameBoard";
+import { GetBoardById } from "@/services/requests/boards/getBoardById";
+import { useDebounce } from 'ahooks';
+import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { List } from "../List/List";
-import { NewList } from "../New/NewList";
-import { GetBoardById } from "@/services/requests/boards/getBoardById";
-import { useRouter } from "next/router";
-import { Iboard } from "@/@types/boards";
-import { BoardContext } from "@/context/BoardContext";
-import { Avatar } from "@/components/Avatar";
 import { ModalNewMember } from "../Member/Modal";
-import { RenameBoard } from "@/services/requests/boards/RenameBoard";
-import { useDebounce } from 'ahooks';
+import { NewList } from "../New/NewList";
 
 export default function Main() {
     // bbg-gradient-to-bl from-blue-10 to-blue-800 gradient
