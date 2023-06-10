@@ -55,7 +55,7 @@ export default function Main() {
     return (
         <main
             style={{
-                background: `linear-gradient(225deg, #fff 0%, ${'#60a5fa'} 100%)`
+                background: `linear-gradient(225deg, #fff 0%, ${board ? board.backgroundURL : '#60a5fa'} 100%)`
             }}
             className='w-screen h-[calc(100vh-7rem-4rem)] flex flex-col overflow-x-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100'>
             <section
