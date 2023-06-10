@@ -1,4 +1,5 @@
 import { IList } from "./list";
+import { IUser } from "./user";
 
 export type TactivityBoard = {
   text: string;
@@ -6,8 +7,7 @@ export type TactivityBoard = {
 };
 
 export type TmembersBoard = {
-  _id: string;
-  user: string;
+  user: IUser;
   name: string;
   role: string;
 };

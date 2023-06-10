@@ -22,18 +22,13 @@ export function BoardProvider({ children }: BoardProviderProps) {
   }, [])
 
   const handleCreateList =
-    // useCallback(
     async () => {
-      console.log("executou a função de criar lista");
-
 
       const addNewList = {
         title: "Enter a List name",
         boardId: board._id
       }
       const response = await createList(addNewList)
-      console.log(response);
-
 
       setBoard((prev) => {
         return {
@@ -42,7 +37,6 @@ export function BoardProvider({ children }: BoardProviderProps) {
         }
       })
     }
-  // , [board])
 
 
 
