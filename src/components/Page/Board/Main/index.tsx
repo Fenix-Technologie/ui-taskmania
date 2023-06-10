@@ -80,7 +80,7 @@ export default function Main() {
                 <div className='flex flex-row gap-x-6'>
                     {!isLoading && (
                         <>
-                            {board.lists?.map((list) => <List key={list._id} />)}
+                            {board.lists?.map((list) => <List list={list} key={list._id} />)}
                         </>
                     )}
                     <NewList />
