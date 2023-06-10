@@ -17,7 +17,7 @@ export default function Main() {
     const [isLoading, setIsLoading] = useState(false)
 
 
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState(board.title)
     const [titleError, setTitleError] = useState(false)
 
     const RenameBoardTitle = useCallback(async () => {
