@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { List } from "../List/List";
 import { NewList } from "../New/NewList";
 import { GetBoardById } from "@/services/requests/boards/getBoardById";
@@ -13,27 +13,31 @@ import { useDebounce } from 'ahooks';
 export default function Main() {
     // bbg-gradient-to-bl from-blue-10 to-blue-800 gradient
     const { query: { id } } = useRouter()
-    const { board, setBoardData, handleCreateList } = useContext(BoardContext)
+    const { board, setBoardData } = useContext(BoardContext)
     const [isLoading, setIsLoading] = useState(false)
 
-    console.log(board)
 
     const [title, setTitle] = useState('')
+    const [titleError, setTitleError] = useState(false)
 
-    async function RenameBoardTitle() {
-        await RenameBoard({
-            title,
-            boardId: board._id
-        })
-    }
+    const RenameBoardTitle = useCallback(async () => {
+        if (title === board.title) {
+            setTitleError(false)
+            return
+        }
+        else if (title === '') {
+            setTitleError(true)
+            return
+        } else {
+            setTitleError(false)
+            await RenameBoard({
+                title,
+                boardId: board._id
+            })
+        }
+    }, [title])
 
-    useDebounce(RenameBoardTitle, { wait: 500 });
-
-
-    // useEffect(() => {
-    //     RenameBoardTitle()
-    // }, [title])
-
+    useDebounce(RenameBoardTitle, { wait: 1500 });
 
     useEffect(() => {
         async function get() {
@@ -41,6 +45,7 @@ export default function Main() {
             // @ts-ignore
             const response = await GetBoardById(id || '')
             setBoardData(response)
+            setTitle(response.title);
             setIsLoading(false)
         }
         get()
@@ -56,7 +61,10 @@ export default function Main() {
             <section
                 className='w-screen h-[calc(100vh-7rem-4rem)] flex flex-col px-6'>
                 <div className="flex flex-row items-center justify-start py-7 gap-x-4">
-                    <input onChange={e => setTitle(e.target.value)} type="text" placeholder={board.title} className='bg-transparent text-title-about placeholder:text-white text-white leading-7 text-2xl' />
+                    <div className="w-fit flex flex-col">
+                        <input onChange={e => setTitle(e.target.value)} type="text" value={title} className='bg-transparent text-title-about placeholder:text-white text-white leading-7 text-2xl' />
+                        {titleError && <span className="text-notification-warning text-about">Titulo é obrigatorio*</span>}
+                    </div>
                     <div className="flex flex-row items-center justify-start gap-x-1">
                         {board?.members?.map(member =>
                             <Avatar name={member.name || ""} size='30px' />
@@ -67,7 +75,6 @@ export default function Main() {
                         {board?.members?.map(member =>
                             <ModalNewMember key={member.user._id} OwnerEmail={member.user.email} OwnerName={member.name} owner={member.name} />
                         )}
-
                     </button>
                 </div>
                 <div className='flex flex-row gap-x-6'>
