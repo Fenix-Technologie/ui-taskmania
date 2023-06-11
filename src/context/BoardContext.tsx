@@ -95,12 +95,12 @@ export function BoardProvider({ children }: BoardProviderProps) {
             if (list?.cards && list.cards.length > 0) {
               return {
                 ...list,
-                cards: [...list.cards, response.data],
+                cards: [...list.cards, response.data.card],
               };
             }
             return {
               ...list,
-              cards: [response.data],
+              cards: [response.data.card],
             };
           } else {
             return list;
