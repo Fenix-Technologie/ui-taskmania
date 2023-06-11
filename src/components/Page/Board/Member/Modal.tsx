@@ -1,7 +1,13 @@
 import { CloseModalIcon, NewMemberIcon } from "@/assets/icon";
 import { Avatar } from "@/components/Avatar";
 import { Button } from "@/components/Button";
-import *  as Dialog from "@radix-ui/react-dialog";
+import { BoardContext } from "@/context/BoardContext";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as Dialog from "@radix-ui/react-dialog";
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Members } from "./Members";
 
 interface ModalProps {
@@ -10,9 +16,27 @@ interface ModalProps {
     OwnerEmail?: string
 }
 
+const schema = z.object({
+    email: z.string().email('Para convidar, precisa digitar um email valido')
+})
+
+type FormData = z.infer<typeof schema>
+
 export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
+    const { query: { id } } = useRouter()
+    const { handleSendInvitation } = useContext(BoardContext)
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(schema)
+    })
+
+    const onSubmit = (data: FormData) => {
+        handleSendInvitation(data.email, String(id))
+    }
 
     const onlyYou = <h1 className="text-xl text-red-600">Only You</h1>
+
+
 
     return (
         <Dialog.Root>
@@ -66,13 +90,20 @@ export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
                             </div>
                         </section>
                         <section className=" border-gray-105 border-t-[1px] w-full border-dashed border-spacing-14 h-full flex flex-row items-center justify-center gap-x-3">
-                            <div className="flex flex-row items-center justify-center gap-x-3 pb-4">
-                                <input placeholder="Add a new member" type="text"
-                                    className="w-[232px] h-8 rounded-md bg-white border-solid border-gray-90 border-[1px] drop-shadow-md placeholder:text-sm p-4" />
+                            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row items-center justify-center gap-x-3 pb-4">
+                                <input
+                                    className="w-[232px] h-8 rounded-md bg-white border-solid border-gray-90 border-[1px] drop-shadow-md placeholder:text-sm p-4"
+                                    placeholder="Add a new member"
+                                    type="text"
+                                    {...register('email')}
+                                />
+                                {errors.email && <span className="text-about text-notification-warning">{errors.email.message}</span>}
                                 <Button
                                     className='rounded-lg flex flex-row gap-x-2 items-center px-2 text-white text-sm font-lexend bg-gradient-to-r from-[#3060B2] via-[#042C71] to-[#3060B2] border-white border-[1px] hover:bg-gradient-to-r hover:brightness-125'
-                                    text="Send Invite" />
-                            </div>
+                                    text="Send Invite"
+                                    type="submit"
+                                />
+                            </form>
                         </section>
                     </section>
                     <Dialog.Close asChild className="flex flex-col items-center justify-center">

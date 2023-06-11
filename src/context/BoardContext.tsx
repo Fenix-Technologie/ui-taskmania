@@ -11,6 +11,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { addMember } from "@/services/requests/boards/AddMember";
 
 interface BoardProviderProps {
   children: ReactNode;
@@ -21,6 +22,7 @@ interface IContext {
   handleCreateList: () => void;
   handleListTitle: (newTitle: string, id: string, boardId: string) => void;
   handleCreateNewTask: (title: string, listId: string, boardId: string) => void;
+  handleSendInvitation: (email: string, id: string) => void;
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -31,6 +33,22 @@ export function BoardProvider({ children }: BoardProviderProps) {
   const setBoardData = useCallback((data: Iboard) => {
     setBoard(data);
   }, []);
+
+  const handleSendInvitation = async (email: string, id: string) => {
+    console.log(email, id);
+    
+    try {
+      if (!email) return
+      const newMembers = await addMember({ boardId: String(id), email })
+      setBoard(prev => ({
+        ...prev,
+        members: [...prev.members, newMembers]
+      }))
+
+    } catch (error) {
+      alert('Algo deu errado')
+    }
+  }
 
   const handleCreateList = async () => {
     const addNewList = {
@@ -120,6 +138,7 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleCreateList,
         handleListTitle,
         handleCreateNewTask,
+        handleSendInvitation
       }}
     >
       {children}
