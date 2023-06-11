@@ -3,6 +3,7 @@ import { Card } from "./Card";
 import { Clock, Pencil } from "@/assets/icon";
 import { SideBarCard } from "./SideBar";
 import { ICard } from "@/@types/cards";
+import { format } from 'date-fns'
 
 interface CardModalProps {
   card: ICard;
@@ -13,7 +14,7 @@ export function CardModal({ card }: CardModalProps) {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button className="bg-transparent w-full">
-          <Card title={card.title} deadline="deadline" />
+          <Card title={card.title} deadline={card.deadline} />
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -27,7 +28,7 @@ export function CardModal({ card }: CardModalProps) {
             <div className="h-full py-8">
               <header className="w-full items-start">
                 <div>
-                  <Clock />
+                  Membros 
                 </div>
                 <h1 className="text-title-about text-gray-120 text-xl">
                   {card.title}
@@ -36,7 +37,8 @@ export function CardModal({ card }: CardModalProps) {
               <div className="w-full items-start">
                 <p className="flex flex-row items-center justify-start space-x-2">
                   <Clock />
-                  <h2>Deadline</h2>
+                  <h2 className="text-regular text-gray-120">Deadline:</h2>
+                  <h2>{format(new Date(card.deadline), "dd'/'MM'/'yyyy '-' kk':'mm")}</h2>
                 </p>
               </div>
 

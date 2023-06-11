@@ -16,4 +16,7 @@ export interface ICard {
     }
   ];
   archived: Boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deadline: Date;
 }

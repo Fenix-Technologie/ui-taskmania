@@ -60,8 +60,14 @@ export default function Main() {
             <section
                 className='w-screen h-[calc(100vh-7rem-4rem)] flex flex-col px-6'>
                 <div className="flex flex-row items-center justify-start py-7 gap-x-4">
-                    <div className="w-fit flex flex-col">
-                        <input onChange={e => setTitle(e.target.value)} type="text" value={title} className='bg-transparent text-title-about placeholder:text-white text-white leading-7 text-2xl' />
+                    <div className="min-w-[530px] flex flex-col">
+                        <input
+                            className='w-full bg-transparent text-title-about placeholder:text-white text-white leading-7 text-2xl'
+                            type="text"
+                            title={title}
+                            onChange={e => setTitle(e.target.value)}
+                            value={title}
+                        />
                         {titleError && <span className="text-notification-warning text-about">Titulo é obrigatorio*</span>}
                     </div>
                     <div className="flex flex-row items-center justify-start gap-x-1">
