@@ -28,7 +28,7 @@ export function CardModal({ card }: CardModalProps) {
             <div className="h-full py-8">
               <header className="w-full items-start">
                 <div>
-                  Membros 
+                  Membros
                 </div>
                 <h1 className="text-title-about text-gray-120 text-xl">
                   {card.title}
@@ -57,7 +57,9 @@ export function CardModal({ card }: CardModalProps) {
                     rows={5}
                     placeholder="Write Here!"
                     className="resize-none"
-                  >{card.description}</textarea>
+                  >
+                    {card.description}
+                  </textarea>
                 </fieldset>
               </section>
               <div className="py-5">
