@@ -12,6 +12,7 @@ import {
   useState,
 } from "react";
 import { addMember } from "@/services/requests/boards/AddMember";
+import { RemoveMember } from "@/services/requests/boards/removeMember";
 
 interface BoardProviderProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ interface IContext {
   handleListTitle: (newTitle: string, id: string, boardId: string) => void;
   handleCreateNewTask: (title: string, listId: string, boardId: string) => void;
   handleSendInvitation: (email: string, id: string) => void;
+  handleRemoveMember: (boardId: string, userId: string) => void
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -36,7 +38,7 @@ export function BoardProvider({ children }: BoardProviderProps) {
 
   const handleSendInvitation = async (email: string, id: string) => {
     console.log(email, id);
-    
+
     try {
       if (!email) return
       const newMembers = await addMember({ boardId: String(id), email })
@@ -48,6 +50,18 @@ export function BoardProvider({ children }: BoardProviderProps) {
     } catch (error) {
       alert('Algo deu errado')
     }
+  }
+
+  const handleRemoveMember = async (boardId: string, userId: string) => {
+    await RemoveMember({
+      boardId,
+      userId
+    })
+
+    setBoard(prev => ({
+      ...prev,
+      members: prev.members.filter(member => member.user._id === userId)
+    }))
   }
 
   const handleCreateList = async () => {
@@ -138,7 +152,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleCreateList,
         handleListTitle,
         handleCreateNewTask,
-        handleSendInvitation
+        handleSendInvitation,
+        handleRemoveMember
       }}
     >
       {children}

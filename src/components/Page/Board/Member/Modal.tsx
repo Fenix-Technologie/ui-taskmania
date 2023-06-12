@@ -5,16 +5,11 @@ import { BoardContext } from "@/context/BoardContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Members } from "./Members";
-
-interface ModalProps {
-    owner: string
-    OwnerName: string
-    OwnerEmail?: string
-}
+import { TmembersBoard } from "@/@types/boards";
 
 const schema = z.object({
     email: z.string().email('Para convidar, precisa digitar um email valido')
@@ -22,9 +17,13 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
+export function ModalNewMember() {
     const { query: { id } } = useRouter()
-    const { handleSendInvitation } = useContext(BoardContext)
+    const { board, handleSendInvitation } = useContext(BoardContext)
+
+    const [owners, setOwners] = useState<TmembersBoard[]>([])
+    const [members, setMembers] = useState<TmembersBoard[]>([])
+
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema)
@@ -34,7 +33,13 @@ export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
         handleSendInvitation(data.email, String(id))
     }
 
-    const onlyYou = <h1 className="text-xl text-red-600">Only You</h1>
+    const owner = board?.members?.filter(member => member.role === "admin")
+    const member = board?.members?.filter(member => member.role === "normal")
+
+    useEffect(() => {
+        setOwners(owner)
+        setMembers(member)
+    }, [board])
 
 
 
@@ -56,19 +61,24 @@ export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
                             <h1 className="text-title-about text-gray-120 text-xl">People on this board</h1>
                         </header>
                         <section className="flex items-center gap-2">
-                            <h2 className="text-about">Owner</h2>
+                            <h2 className="text-about">Administrators</h2>
                             <div className="flex flex-row w-full">
                                 <div className="border-gray-105 border-[1px] w-full border-dashed border-spacing-14" />
                             </div>
                         </section>
                         <section className="w-full flex flex-row gap-x-2">
-                            <div>
-                                <Avatar name={owner || ""} size='30px' />
-                            </div>
-                            <div>
-                                <h1 className="text-title-about text-gray-120">{OwnerName}</h1>
-                                <h2 className="text-about text-sm">{OwnerEmail}</h2>
-                            </div>
+                            {owners?.map(owner =>
+                                <>
+                                    <div>
+                                        <Avatar name={owner.name || ""} size='30px' />
+                                    </div>
+                                    <div>
+                                        <h1 className="text-title-about text-gray-120">{owner.name}</h1>
+                                        <h2 className="text-about text-sm">{owner.user.email}</h2>
+                                    </div>
+                                </>
+                            )}
+
                         </section>
                         <section className="pt-4 flex items-center">
                             <h2 className="text-about">Members</h2>
@@ -77,16 +87,28 @@ export function ModalNewMember({ owner, OwnerName, OwnerEmail }: ModalProps) {
                             </div>
                         </section>
                         <div className="w-full flex flex-row items-end justify-end pr-2 gap-x-2">
-                            <h2 className="text-menuTitle text-gray-105">Edit</h2>
-                            <h2 className="text-menuTitle text-gray-105">Remove</h2>
+                            {members?.length > 0 &&
+                                <>
+                                    <h2 className="text-menuTitle text-gray-105">Edit</h2>
+                                    <h2 className="text-menuTitle text-gray-105">Remove</h2>
+                                </>
+                            }
+
                         </div>
                         <section className="w-full h-full flex flex-col items-center justify-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100">
 
                             <div className="w-full h-full ">
-                                <Members />
-                                <Members />
-                                <Members />
-                                <Members />
+                                {members?.length > 0 ?
+                                    members?.map(member => <Members
+                                        Name={member.name}
+                                        avatar={member.name}
+                                        email={member.user.email}
+                                        _id={member.user._id}
+                                    />)
+                                    :
+                                    <h1 className="text-xl w-full text-center pt-8 text-red-600 self-auto">Only You</h1>
+                                }
+
                             </div>
                         </section>
                         <section className=" border-gray-105 border-t-[1px] w-full border-dashed border-spacing-14 h-full flex flex-row items-center justify-center gap-x-3">

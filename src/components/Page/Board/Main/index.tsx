@@ -70,17 +70,16 @@ export default function Main() {
                         />
                         {titleError && <span className="text-notification-warning text-about">Titulo é obrigatorio*</span>}
                     </div>
-                    <div className="flex flex-row items-center justify-start gap-x-1">
-                        {board?.members?.map(member =>
-                            <Avatar name={member.name || ""} size='30px' />
-                        )}
-
+                    <div className="w-full flex flex-row items-center justify-start gap-x-4">
+                        <div className="flex flex-row items-center justify-start gap-x-1">
+                            {board?.members?.map(member =>
+                                <Avatar name={member.name || ""} size='30px' />
+                            )}
+                        </div>
+                        <button className="pt-1">
+                            <ModalNewMember />
+                        </button>
                     </div>
-                    <button>
-                        {board?.members?.map(member =>
-                            <ModalNewMember key={member.user._id} OwnerEmail={member.user.email} OwnerName={member.name} owner={member.name} />
-                        )}
-                    </button>
                 </div>
                 <div className='flex flex-row gap-x-6'>
                     {!isLoading && (
