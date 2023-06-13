@@ -9,11 +9,12 @@ import { List } from "../List/List";
 import { ModalNewMember } from "../Member/Modal";
 import { NewList } from "../New/NewList";
 import { DragDropContext } from "react-beautiful-dnd";
+import { ICard } from "@/@types/cards";
 
 export default function Main() {
     // bbg-gradient-to-bl from-blue-10 to-blue-800 gradient
     const { query: { id } } = useRouter()
-    const { board, setBoardData } = useContext(BoardContext)
+    const { board, setBoardData, onDragEnd } = useContext(BoardContext)
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -51,28 +52,7 @@ export default function Main() {
         get()
     }, [id])
 
-    const onDragEnd = (result: any) => {
-        const { destination, source, draggableId } = result
-        console.log(result)
-
-        if (!destination) {
-            return
-        }
-
-        if (destination.droppableId === source.droppableId && destination.index === source.index) {
-            return
-        }
-
-        const columm = board.lists[source.draggableId] //setBoard arr = []
-        console.log("COl:", columm)
-        const newTaskId = Array.from(columm.cards)
-
-        newTaskId.splice(source.index, 1)
-        newTaskId.splice(destination.index, 0, draggableId)
-
-        console.log("New task: ", newTaskId)
-
-    }
+    
 
 
     return (

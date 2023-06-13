@@ -1,18 +1,21 @@
 import { Iboard } from "@/@types/boards";
 import { ICard } from "@/@types/cards";
+import { IList } from "@/@types/list";
 import { Toast } from "@/components/Notifications/Toast";
+import { addMember } from "@/services/requests/boards/AddMember";
+import { RemoveMember } from "@/services/requests/boards/removeMember";
+import { createTask } from "@/services/requests/cards/createTask";
+import { changeCardsOrder } from "@/services/requests/lists/changeCardsOrder";
 import { createList } from "@/services/requests/lists/create";
 import { editTitleList } from "@/services/requests/lists/editTitle";
-import { createTask } from "@/services/requests/cards/createTask";
+import { useDebounce } from 'ahooks';
 import {
   ReactNode,
   createContext,
   useCallback,
-  useContext,
-  useState,
+  useState
 } from "react";
-import { addMember } from "@/services/requests/boards/AddMember";
-import { RemoveMember } from "@/services/requests/boards/removeMember";
+
 
 interface BoardProviderProps {
   children: ReactNode;
@@ -25,6 +28,7 @@ interface IContext {
   handleCreateNewTask: (title: string, listId: string, boardId: string) => void;
   handleSendInvitation: (email: string, id: string) => void;
   handleRemoveMember: (boardId: string, userId: string) => void
+  onDragEnd: (result: any) => void;
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -144,6 +148,98 @@ export function BoardProvider({ children }: BoardProviderProps) {
     }
   };
 
+  const handleChangeCardOrder = useCallback(async (boardId: string, listToChangeCardsOrder: IList[]) => {
+    await changeCardsOrder({
+      boardId,
+      listToChangeCardsOrder
+    })
+  }, [board])
+
+  const onDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result
+    console.log(result)
+
+    if (!destination) {
+      return
+    }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return
+    }
+
+    const start = board.lists.find((list) => list._id === source.droppableId)
+    const finish = board.lists.find((list) => list._id === destination.droppableId)
+    const taskMoveds = Array.from(start?.cards || []);
+    const cardMoved: ICard = taskMoveds.find(task => task._id === draggableId) || {} as ICard
+
+    if (start === finish) {
+      taskMoveds.splice(source.index, 1)
+      taskMoveds.splice(destination.index, 0, cardMoved)
+
+      const listsToSendToChange = [{
+        ...start,
+        cards: taskMoveds
+      }]
+
+      //@ts-ignore
+      handleChangeCardOrder(board._id, listsToSendToChange)
+
+      setBoard(prev => ({
+        ...prev,
+        lists: prev.lists.map(list => {
+          if (list._id === source.droppableId) {
+            return {
+              ...list,
+              cards: taskMoveds
+            }
+          }
+          return list
+        })
+      }))
+      return
+    }
+
+    const startCards = Array.from(start?.cards || [])
+    startCards.splice(source.index, 1)
+
+
+    const finishCards = Array.from(finish?.cards || [])
+    finishCards.splice(destination.index, 0, cardMoved)
+
+    setBoard(prev => ({
+      ...prev,
+      lists: prev.lists.map((list) => {
+        if (list._id === source.droppableId) {
+          return {
+            ...list,
+            cards: startCards
+          }
+        }
+        if (list._id === destination.droppableId) {
+          return {
+            ...list,
+            cards: finishCards
+          }
+        }
+        return list
+      })
+    }));
+
+    const listsToSendToChange = [
+      {
+        ...start,
+        cards: startCards
+      },
+      {
+        ...finish,
+        cards: finishCards
+      }
+    ]
+    //@ts-ignore
+    handleChangeCardOrder(board._id, listsToSendToChange)
+
+  }
+
   return (
     <BoardContext.Provider
       value={{
@@ -153,7 +249,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleListTitle,
         handleCreateNewTask,
         handleSendInvitation,
-        handleRemoveMember
+        handleRemoveMember,
+        onDragEnd
       }}
     >
       {children}
