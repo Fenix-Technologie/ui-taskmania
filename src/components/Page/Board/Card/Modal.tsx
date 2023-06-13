@@ -4,17 +4,19 @@ import { Clock, Pencil } from "@/assets/icon";
 import { SideBarCard } from "./SideBar";
 import { ICard } from "@/@types/cards";
 import { format } from 'date-fns'
+import { ReactNode } from "react";
 
 interface CardModalProps {
   card: ICard;
+  children: ReactNode
 }
 
-export function CardModal({ card }: CardModalProps) {
+export function CardModal({ card, children }: CardModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button className="bg-transparent w-full">
-          <Card title={card.title} deadline={card.deadline} />
+          {children}
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>

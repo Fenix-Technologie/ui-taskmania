@@ -8,6 +8,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { List } from "../List/List";
 import { ModalNewMember } from "../Member/Modal";
 import { NewList } from "../New/NewList";
+import { DragDropContext } from "react-beautiful-dnd";
 
 export default function Main() {
     // bbg-gradient-to-bl from-blue-10 to-blue-800 gradient
@@ -50,6 +51,29 @@ export default function Main() {
         get()
     }, [id])
 
+    const onDragEnd = (result: any) => {
+        const { destination, source, draggableId } = result
+        console.log(result)
+
+        if (!destination) {
+            return
+        }
+
+        if (destination.droppableId === source.droppableId && destination.index === source.index) {
+            return
+        }
+
+        const columm = board.lists[source.draggableId] //setBoard arr = []
+        console.log("COl:", columm)
+        const newTaskId = Array.from(columm.cards)
+
+        newTaskId.splice(source.index, 1)
+        newTaskId.splice(destination.index, 0, draggableId)
+
+        console.log("New task: ", newTaskId)
+
+    }
+
 
     return (
         <main
@@ -82,11 +106,14 @@ export default function Main() {
                     </div>
                 </div>
                 <div className='flex flex-row gap-x-6'>
-                    {!isLoading && (
-                        <>
-                            {board.lists?.map((list) => <List list={list} key={list._id} />)}
-                        </>
-                    )}
+                    <DragDropContext onDragEnd={onDragEnd}>
+
+                        {!isLoading && (
+                            <>
+                                {board.lists?.map((list) => <List list={list} key={list._id} />)}
+                            </>
+                        )}
+                    </DragDropContext>
                     <NewList />
                 </div>
             </section>
