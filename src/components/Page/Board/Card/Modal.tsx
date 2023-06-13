@@ -1,10 +1,11 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { Card } from "./Card";
-import { Clock, Pencil } from "@/assets/icon";
-import { SideBarCard } from "./SideBar";
 import { ICard } from "@/@types/cards";
-import { format } from 'date-fns'
-import { ReactNode } from "react";
+import { Clock, Pencil } from "@/assets/icon";
+import * as Dialog from "@radix-ui/react-dialog";
+import { format } from 'date-fns';
+import { useRouter } from "next/router";
+import { ReactNode, useMemo, useState } from "react";
+import { SideBarCard } from "./SideBar";
+import { useDebounce } from "ahooks";
 
 interface CardModalProps {
   card: ICard;
@@ -12,6 +13,18 @@ interface CardModalProps {
 }
 
 export function CardModal({ card, children }: CardModalProps) {
+  const { query: { id } } = useRouter()
+
+  const [cardTitle, setCardTitle] = useState(card.title)
+  const [cardDescription, setCardDescription] = useState(card.description)
+
+  const handleChangeCard = useMemo(() => {
+
+  }, [cardTitle, cardDescription])
+
+
+  useDebounce(handleChangeCard, { wait: 1500 })
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -22,7 +35,9 @@ export function CardModal({ card, children }: CardModalProps) {
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black opacity-60 data-[state=open]:animate-overlayShow fixed inset-0" />
         <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] h-[730px] flex flex-col items-start justify-start pb-4 w-[702px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-          <Dialog.Title className=" bg-blue-400 w-full h-32 flex items-center justify-end p-2 text-mauve12 m-0 text-[17px] font-medium rounded-t-[6px]">
+          <Dialog.Title style={{
+            backgroundColor: card.background
+          }} className="w-full h-32 flex items-center justify-end p-2 text-mauve12 m-0 text-[17px] font-medium rounded-t-[6px]">
             <Pencil />
           </Dialog.Title>
 
@@ -32,9 +47,11 @@ export function CardModal({ card, children }: CardModalProps) {
                 <div>
                   Membros
                 </div>
-                <h1 className="text-title-about text-gray-120 text-xl">
-                  {card.title}
-                </h1>
+                <input
+                  className="text-title-about text-gray-120 text-xl w-full"
+                  value={cardTitle}
+                  onChange={(e) => setCardTitle(e.target.value)}
+                />
               </header>
               <div className="w-full items-start">
                 <p className="flex flex-row items-center justify-start space-x-2">
@@ -59,8 +76,10 @@ export function CardModal({ card, children }: CardModalProps) {
                     rows={5}
                     placeholder="Write Here!"
                     className="resize-none"
+                    onChange={(e) => setCardDescription(e.target.value)}
+
                   >
-                    {card.description}
+                    {cardDescription}
                   </textarea>
                 </fieldset>
               </section>

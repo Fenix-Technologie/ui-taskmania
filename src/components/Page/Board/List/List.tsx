@@ -1,13 +1,13 @@
-import { MenuList, NewBoardIcon } from "@/assets/icon";
-import { Card } from "../Card/Card";
-import { MenuButton } from "@/components/Menu/Button";
-import { CardModal } from "../Card/Modal";
-import { useCallback, useContext, useEffect, useState } from "react";
 import { IList } from "@/@types/list";
+import { MenuList, NewBoardIcon } from "@/assets/icon";
+import { MenuButton } from "@/components/Menu/Button";
 import { BoardContext } from "@/context/BoardContext";
 import { useDebounce } from "ahooks";
 import { useRouter } from "next/router";
-import { DragDropContext, Droppable, Draggable, DroppableProps } from "react-beautiful-dnd";
+import { useCallback, useContext, useState } from "react";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Card } from "../Card/Card";
+import { CardModal } from "../Card/Modal";
 
 interface ListProps {
   list: IList;
@@ -26,9 +26,6 @@ export function List({ list }: ListProps) {
       handleListTitle(inputTitle, list._id, String(id));
     }
   }, [inputTitle]);
-
-
-  const cards: any = []
 
   useDebounce(listTitleChanged, { wait: 1500 });
 

@@ -38,12 +38,20 @@ module.exports = {
           105: '#8C8C8C',
           120: '#404040',
           995: '#0C0C0C'
-          
+
         },
         notification: {
           warning: '#F06E67',
           changes: '#F7C374',
           progress: '#74BAFA',
+          completed: '#80D465'
+        },
+        priorityColors: {
+          'very-high': '#ff8f89',
+          high: '#ffc978',
+          mid: '#fff6a1',
+          low: '#fffdc9',
+          'very-low': '#8dc9ff',
           completed: '#80D465'
         }
       },

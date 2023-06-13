@@ -21,7 +21,6 @@ export function Card({ title, deadline }: CardProps) {
                 </section>
                 <section className='flex flex-col items-center gap-y-4'>
                     <Pencil />
-                    <CheckBox />
                 </section>
             </div>
         </main>
