@@ -2,23 +2,22 @@ import { PriorityIcon, SigninIcon, Tag } from "@/assets/icon";
 import { MenuButton } from "../Menu/Button";
 import { ClockCard } from "@/assets/icon";
 import { DropDownPriority } from "./DropDownPriority";
+import { ModalMembersCard } from "./ModalMembersCard";
 
 interface SideBarProps {
     setPriority: Function
+    cardId: string
+    listId: string
 }
 
-export function SideBarCard({ setPriority }: SideBarProps) {
+export function SideBarCard({ setPriority, cardId, listId }: SideBarProps) {
 
-    const buttons = [{
-        text: 'Members',
-        icon: <SigninIcon />,
-        buttonFunction: () => console.log('Apertei')
-    },
-    {
-        text: 'Date',
-        icon: <ClockCard />,
-        buttonFunction: () => console.log('Apertei')
-    }]
+    const buttons = [
+        {
+            text: 'Date',
+            icon: <ClockCard />,
+            buttonFunction: () => console.log('Apertei')
+        }]
 
     return (
         <aside className="bg-gray-30 w-[154px] items-center justify-center h-[630px] rounded-[10px]">
@@ -27,6 +26,13 @@ export function SideBarCard({ setPriority }: SideBarProps) {
             </header>
             <main>
                 <section className="flex flex-col gap-y-2 p-5">
+                    <ModalMembersCard cardId={cardId} listId={listId}>
+                        <MenuButton
+                            text="Members"
+                            icon={<SigninIcon />}
+                        />
+                    </ModalMembersCard>
+
                     {buttons.map(button => {
                         return (
                             <MenuButton
@@ -36,6 +42,7 @@ export function SideBarCard({ setPriority }: SideBarProps) {
                             />
                         )
                     })}
+
                     <DropDownPriority setPriority={setPriority}>
                         <MenuButton
                             text='Priority'

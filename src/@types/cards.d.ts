@@ -1,14 +1,14 @@
+export type TMembers = {
+  user: string
+  name: string
+}
+
 export interface ICard {
   _id: string;
   title: string;
   description: string;
   background: string
-  members: [
-    {
-      user: string;
-      name: string;
-    }
-  ];
+  members: TMembers[];
   checklist?: [
     {
       text: string;

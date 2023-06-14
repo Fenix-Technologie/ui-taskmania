@@ -8,6 +8,7 @@ import { SideBarCard } from "./SideBar";
 import { useDebounce } from "ahooks";
 import { ChangeCardProperties } from "@/services/requests/cards/ChangeCardProperties";
 import { BoardContext } from "@/context/BoardContext";
+import { Avatar } from "@/components/Avatar";
 
 interface CardModalProps {
   card: ICard;
@@ -106,7 +107,7 @@ export function CardModal({ card, children, listId }: CardModalProps) {
             backgroundColor: cardPriority.background
           }} className="w-full h-32 flex items-center justify-end px-2 text-mauve12 m-0 text-[17px] font-medium rounded-t-[6px]">
             <div className="mr-2">
-            <Pencil />
+              <Pencil />
             </div>
             {/* <button onClick={ChangedCard}>
               <SaveIcon />
@@ -117,7 +118,9 @@ export function CardModal({ card, children, listId }: CardModalProps) {
             <div className="h-full py-8">
               <header className="w-full items-start">
                 <div>
-                  Membros
+                  {card?.members?.map(member =>
+                    <Avatar name={member.name || ""} size='30px' />
+                  )}
                 </div>
                 <input
                   className="text-title-about text-gray-120 text-xl w-full"
@@ -172,7 +175,7 @@ export function CardModal({ card, children, listId }: CardModalProps) {
               </div>
             </div>
             <div>
-              <SideBarCard setPriority={handleCardPriority} />
+              <SideBarCard cardId={card._id} listId={listId} setPriority={handleCardPriority} />
             </div>
           </main>
         </Dialog.Content>

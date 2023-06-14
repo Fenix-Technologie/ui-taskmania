@@ -4,6 +4,7 @@ import { IList } from "@/@types/list";
 import { Toast } from "@/components/Notifications/Toast";
 import { addMember } from "@/services/requests/boards/AddMember";
 import { RemoveMember } from "@/services/requests/boards/removeMember";
+import { AddMemberCard } from "@/services/requests/cards/AddMemberCard";
 import { createTask } from "@/services/requests/cards/createTask";
 import { changeCardsOrder } from "@/services/requests/lists/changeCardsOrder";
 import { createList } from "@/services/requests/lists/create";
@@ -29,6 +30,7 @@ interface IContext {
   handleSendInvitation: (email: string, id: string) => void;
   handleRemoveMember: (boardId: string, userId: string) => void
   onDragEnd: (result: any) => void;
+  handleAddMemberCard: (add: boolean, cardId: string, userId: string, boardId: string, listId: string, userName: string) => void
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -82,6 +84,60 @@ export function BoardProvider({ children }: BoardProviderProps) {
       };
     });
   };
+
+  const handleAddMemberCard = useCallback(async (add: boolean, cardId: string, userId: string, boardId: string, listId: string, userName: string) => {
+    if (add) {
+      await AddMemberCard({ add, cardId, userId, boardId })
+
+      const boardChanged = {
+        ...board,
+        lists: board.lists.map(list => {
+          if (list._id === listId) {
+            return {
+              ...list,
+              cards: list?.cards?.map(element => {
+                if (element._id === cardId) {
+                  return {
+                    ...element,
+                    members: [...element.members, { user: userId, name: userName }]
+                  }
+                }
+                return element
+              })
+            }
+          }
+          return list
+        })
+      }
+      setBoard(boardChanged)
+    } else {
+      await AddMemberCard({ add, cardId, userId, boardId })
+
+      const boardChanged = {
+        ...board,
+        lists: board.lists.map(list => {
+          if (list._id === listId) {
+            return {
+              ...list,
+              cards: list?.cards?.map(element => {
+                if (element._id === cardId) {
+                  return {
+                    ...element,
+                    members: element.members.filter(member => member.user !== userId)
+                  }
+                }
+                return element
+              })
+            }
+          }
+          return list
+        })
+      }
+      setBoard(boardChanged)
+    }
+
+
+  }, [])
 
   const handleListTitle = useCallback(
     async (newTitle: string, id: string, boardId: string) => {
@@ -250,7 +306,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleCreateNewTask,
         handleSendInvitation,
         handleRemoveMember,
-        onDragEnd
+        onDragEnd,
+        handleAddMemberCard
       }}
     >
       {children}
