@@ -43,11 +43,14 @@ export function BoardProvider({ children }: BoardProviderProps) {
   }, []);
 
   const handleSendInvitation = async (email: string, id: string) => {
-    console.log(email, id);
-
     try {
-      if (!email) return
+      if (!email) {
+        return
+      }
+
       const newMembers = await addMember({ boardId: String(id), email })
+      console.log(newMembers);
+
       setBoard(prev => ({
         ...prev,
         members: [...prev.members, newMembers]
@@ -89,9 +92,9 @@ export function BoardProvider({ children }: BoardProviderProps) {
     if (add) {
       await AddMemberCard({ add, cardId, userId, boardId })
 
-      const boardChanged = {
-        ...board,
-        lists: board.lists.map(list => {
+      setBoard(prev => ({
+        ...prev,
+        lists: prev.lists.map(list => {
           if (list._id === listId) {
             return {
               ...list,
@@ -108,14 +111,15 @@ export function BoardProvider({ children }: BoardProviderProps) {
           }
           return list
         })
-      }
-      setBoard(boardChanged)
+      })
+      )
     } else {
       await AddMemberCard({ add, cardId, userId, boardId })
 
-      const boardChanged = {
-        ...board,
-        lists: board.lists.map(list => {
+      setBoard(prev =>
+      ({
+        ...prev,
+        lists: prev.lists.map(list => {
           if (list._id === listId) {
             return {
               ...list,
@@ -132,8 +136,7 @@ export function BoardProvider({ children }: BoardProviderProps) {
           }
           return list
         })
-      }
-      setBoard(boardChanged)
+      }))
     }
 
 

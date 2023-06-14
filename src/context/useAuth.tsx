@@ -66,7 +66,7 @@ export function AuthProvider({ children }: authProviderProps) {
     const handleSignOut = async () => {
         destroyCookie(undefined, 'taskmania:token')
         setUser(null)
-        Router.push('/')
+        Router.push('/signin')
     }
 
 

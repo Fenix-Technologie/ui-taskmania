@@ -12,13 +12,6 @@ interface SideBarProps {
 
 export function SideBarCard({ setPriority, cardId, listId }: SideBarProps) {
 
-    const buttons = [
-        {
-            text: 'Date',
-            icon: <ClockCard />,
-            buttonFunction: () => console.log('Apertei')
-        }]
-
     return (
         <aside className="bg-gray-30 w-[154px] items-center justify-center h-[630px] rounded-[10px]">
             <header className="bg-gray-95 w-full h-[34px] flex items-center justify-center rounded-t-[10px]">
@@ -32,16 +25,6 @@ export function SideBarCard({ setPriority, cardId, listId }: SideBarProps) {
                             icon={<SigninIcon />}
                         />
                     </ModalMembersCard>
-
-                    {buttons.map(button => {
-                        return (
-                            <MenuButton
-                                text={button.text}
-                                icon={button.icon}
-                                buttonFunction={button.buttonFunction}
-                            />
-                        )
-                    })}
 
                     <DropDownPriority setPriority={setPriority}>
                         <MenuButton

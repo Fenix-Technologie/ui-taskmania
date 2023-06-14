@@ -44,11 +44,8 @@ export function ModalMembersCard({ children, cardId, listId }: ModalProps) {
                             <CloseModalIcon />
                         </Dialog.Title>
                     </Dialog.Close>
-                    <Dialog.Title className="w-full h-32 flex items-center justify-start px-2 text-mauve12 m-0 text-[17px] font-medium rounded-t-[6px]">
-                        Add Members
-                    </Dialog.Title>
 
-                    <main className="w-full flex flex-row items-center justify-center p-4 gap-x-6">
+                    <main className="w-full mt-10 flex flex-row items-center justify-center p-4 gap-x-6">
                         <section className="w-full h-full flex flex-col items-center justify-center overflow-auto scrollbar scrollbar-thumb-rounded-sm scrollbar-track-rounded-sm scrollbar-w-[6px] scrollbar-thumb-gray-50 scrollbar-track-gray-100">
 
                             <div className="w-full h-full ">
@@ -66,7 +63,8 @@ export function ModalMembersCard({ children, cardId, listId }: ModalProps) {
                                             }>
                                                 <CheckIcon />
                                             </button>
-                                            <button className="bg-transparent" onClick={() => console.log('oi')}>
+                                            <button className="bg-transparent" onClick={() =>
+                                                handleAddMemberCard(false, cardId, member.user, String(id), listId, member.name)}>
                                                 <TrashIcon />
                                             </button>
                                         </section>
