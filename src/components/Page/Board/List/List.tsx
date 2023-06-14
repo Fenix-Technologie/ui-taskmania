@@ -50,7 +50,7 @@ export function List({ list }: ListProps) {
             {
               list?.cards &&
               list.cards.map((card, index) => (
-                <CardModal key={card._id} card={card}>
+                <CardModal listId={list._id} key={card._id} card={card}>
                   <Draggable key={card._id} draggableId={card._id} index={index}>
                     {(provided1) => (
                       <div
@@ -59,7 +59,7 @@ export function List({ list }: ListProps) {
                         {...provided1.dragHandleProps}
                         className="w-full"
                       >
-                        <Card title={card.title} deadline={card.deadline} key={card._id} />
+                        <Card color={card.background} title={card.title} deadline={card.deadline} key={card._id} />
                       </div>
                     )}
                   </Draggable>

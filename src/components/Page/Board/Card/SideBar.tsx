@@ -1,17 +1,17 @@
-import { SigninIcon, Tag } from "@/assets/icon";
+import { PriorityIcon, SigninIcon, Tag } from "@/assets/icon";
 import { MenuButton } from "../Menu/Button";
 import { ClockCard } from "@/assets/icon";
+import { DropDownPriority } from "./DropDownPriority";
 
-export function SideBarCard() {
+interface SideBarProps {
+    setPriority: Function
+}
+
+export function SideBarCard({ setPriority }: SideBarProps) {
 
     const buttons = [{
         text: 'Members',
         icon: <SigninIcon />,
-        buttonFunction: () => console.log('Apertei')
-    },
-    {
-        text: 'Tags',
-        icon: <Tag />,
         buttonFunction: () => console.log('Apertei')
     },
     {
@@ -36,6 +36,12 @@ export function SideBarCard() {
                             />
                         )
                     })}
+                    <DropDownPriority setPriority={setPriority}>
+                        <MenuButton
+                            text='Priority'
+                            icon={<PriorityIcon />}
+                        />
+                    </DropDownPriority>
 
                 </section>
             </main>
