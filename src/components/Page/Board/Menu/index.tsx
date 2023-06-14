@@ -1,6 +1,7 @@
 import { MenuButton } from "./Button";
 import { ConfigurationsIcon, HeartIcon, NewBoardIcon, NotificationsIcon, ShareIcon } from "@/assets/icon";
 import Modal from "./Modal";
+import { ModalNotifications } from "./ModalNotifications";
 
 export function Menu() {
     const currentMenuOptions = [
@@ -13,16 +14,12 @@ export function Menu() {
             text: 'Favorites',
             icon: <HeartIcon />,
             function: () => console.log('oi')
-        },         {
-            text: 'Notifications',
-            icon: <NotificationsIcon />,
-            function: () => console.log('oi')
-        },         {
+        }, {
             text: 'Configurations',
             icon: <ConfigurationsIcon />,
             function: () => console.log('oi')
         }]
-        
+
     return (
         <nav className="w-full flex flex-col items-start justify-start gap-y-2">
             <Modal
@@ -31,6 +28,14 @@ export function Menu() {
                     icon={<NewBoardIcon />}
                 />}
             />
+
+            <ModalNotifications>
+                <MenuButton
+                    text='Notifications'
+                    icon={<NotificationsIcon fill="#042C71" />}
+                />
+            </ModalNotifications>
+
             {currentMenuOptions.map(e =>
                 <MenuButton
                     text={e.text}

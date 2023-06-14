@@ -76,7 +76,12 @@ export function HeartIcon() {
         </svg>
     )
 }
-export function NotificationsIcon() {
+
+interface NotificationsProps {
+    fill: string
+}
+
+export function NotificationsIcon({ fill }: NotificationsProps) {
     return (
         <svg
             width={14}
@@ -87,7 +92,7 @@ export function NotificationsIcon() {
         >
             <path
                 d="M12.423 11.905V7.958c-.38.076-.759.152-1.138.152h-.38v4.554H3.314V7.35a3.759 3.759 0 013.795-3.795c.076-.987.532-1.822 1.14-2.505C8.02.746 7.564.518 7.108.518c-.835 0-1.518.684-1.518 1.519v.227A5.283 5.283 0 001.796 7.35v4.555L.277 13.423v.76h13.665v-.76l-1.519-1.518zm-6.832 3.037c0 .835.683 1.518 1.518 1.518s1.519-.683 1.519-1.518H5.59zm8.35-11.008c0 1.443-1.214 2.657-2.656 2.657-1.443 0-2.657-1.214-2.657-2.657 0-1.442 1.214-2.657 2.657-2.657 1.442 0 2.657 1.215 2.657 2.657z"
-                fill="#042C71"
+                fill={fill}
             />
         </svg>
     )
