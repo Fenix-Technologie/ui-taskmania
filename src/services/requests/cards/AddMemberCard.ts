@@ -1,4 +1,3 @@
-import { ICard } from "@/@types/cards";
 import { api } from "@/services/api";
 
 interface ChangeCardProps{

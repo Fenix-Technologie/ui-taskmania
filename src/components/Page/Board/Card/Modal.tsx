@@ -120,7 +120,7 @@ export function CardModal({ card, children, listId }: CardModalProps) {
           <main className="w-full flex flex-row items-center justify-center p-4 gap-x-6">
             <div className="h-full py-8">
               <header className="w-full items-start">
-                <div>
+                <div className=" flex gap-x-1">
                   {card?.members?.map(member =>
                     <Avatar name={member.name || ""} size='30px' />
                   )}

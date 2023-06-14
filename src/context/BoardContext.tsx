@@ -5,11 +5,11 @@ import { Toast } from "@/components/Notifications/Toast";
 import { addMember } from "@/services/requests/boards/AddMember";
 import { RemoveMember } from "@/services/requests/boards/removeMember";
 import { AddMemberCard } from "@/services/requests/cards/AddMemberCard";
+import { RemoveCard } from "@/services/requests/cards/RemoveCard";
 import { createTask } from "@/services/requests/cards/createTask";
 import { changeCardsOrder } from "@/services/requests/lists/changeCardsOrder";
 import { createList } from "@/services/requests/lists/create";
 import { editTitleList } from "@/services/requests/lists/editTitle";
-import { useDebounce } from 'ahooks';
 import {
   ReactNode,
   createContext,
@@ -31,6 +31,7 @@ interface IContext {
   handleRemoveMember: (boardId: string, userId: string) => void
   onDragEnd: (result: any) => void;
   handleAddMemberCard: (add: boolean, cardId: string, userId: string, boardId: string, listId: string, userName: string) => void
+  handleRemoveTask: (cardId: string, userId: string, boardId: string, listId: string) => void
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -299,6 +300,23 @@ export function BoardProvider({ children }: BoardProviderProps) {
 
   }
 
+  const handleRemoveTask = useCallback(async (cardId: string, userId: string, boardId: string, listId: string) => {
+    await RemoveCard({ cardId, userId, boardId, listId })
+    setBoard(prev => ({
+      ...prev,
+      lists: prev.lists.map((list) => {
+        if (list._id === listId) {
+          return {
+            ...list,
+            cards: list.cards && list?.cards.filter((card) => card._id !== cardId)
+          }
+        }
+        return list
+      })
+    })
+    )
+  }, [])
+
   return (
     <BoardContext.Provider
       value={{
@@ -310,7 +328,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleSendInvitation,
         handleRemoveMember,
         onDragEnd,
-        handleAddMemberCard
+        handleAddMemberCard,
+        handleRemoveTask
       }}
     >
       {children}
