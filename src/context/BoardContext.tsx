@@ -69,7 +69,7 @@ export function BoardProvider({ children }: BoardProviderProps) {
 
     setBoard(prev => ({
       ...prev,
-      members: prev.members.filter(member => member.user._id === userId)
+      members: prev.members.filter(member => member.user._id !== userId)
     }))
   }
 

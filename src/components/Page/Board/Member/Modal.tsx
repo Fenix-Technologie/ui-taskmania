@@ -52,9 +52,8 @@ export function ModalNewMember() {
             </Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="bg-blackA9 data-[state=open]:animate-overlayShow fixed inset-0" />
-                <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] w-[360px] h-[390px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+                <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] w-[380px] h-[390px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
                     <Dialog.Title className="text-transparent bg-gradient-to-r from-[#FF5E01] to-[#FFBC95] w-full h-9 flex items-center justify-end p-2 text-mauve12 m-0 text-[17px] font-medium rounded-t-xl">
-                        Oi
                     </Dialog.Title>
                     <section className="w-full h-full px-4 py-4 flex flex-col ">
                         <header>
@@ -121,7 +120,7 @@ export function ModalNewMember() {
                                 />
                                 {errors.email && <span className="text-about text-notification-warning">{errors.email.message}</span>}
                                 <Button
-                                    className='rounded-lg flex flex-row gap-x-2 items-center px-2 text-white text-sm font-lexend bg-gradient-to-r from-[#3060B2] via-[#042C71] to-[#3060B2] border-white border-[1px] hover:bg-gradient-to-r hover:brightness-125'
+                                    className='h-8 rounded-lg flex flex-row gap-x-2 items-center px-2 text-white text-sm font-lexend bg-gradient-to-r from-[#3060B2] via-[#042C71] to-[#3060B2] border-white border-[1px] hover:bg-gradient-to-r hover:brightness-125'
                                     text="Send Invite"
                                     type="submit"
                                 />
