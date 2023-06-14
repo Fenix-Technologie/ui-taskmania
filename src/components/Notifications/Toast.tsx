@@ -4,8 +4,8 @@ import * as ToastRadix from '@radix-ui/react-toast';
 interface ToastProps {
     error: boolean;
     message: string;
-    description: string;
-    handleClose: () => void;
+    description?: string;
+    handleClose?: () => void;
     color?: string;
 }
 

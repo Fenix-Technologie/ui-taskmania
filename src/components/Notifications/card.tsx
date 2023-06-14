@@ -16,21 +16,21 @@ export function NotificationCard({ text }: NotificationCardProps) {
 
     useEffect(() => {
         switch (text.toLocaleLowerCase().split(':')[0]) {
-            case 'notify':
+            case 'notify' || 'Notify':
                 setCustomIconAndColor({
                     icon: <BellIcon />,
                     color: '#F7C374',
                     colorText: '#777'
                 })
                 break;
-            case 'warning':
+            case 'warning' || 'Warning':
                 setCustomIconAndColor({
                     icon: <AlertIcon />,
                     color: '#F06E67',
                     colorText: '#fff'
                 })
                 break;
-            case 'information':
+            case 'information' || 'Information':
                 setCustomIconAndColor({
                     icon: <InformationIcon />,
                     color: '#74BAFA',

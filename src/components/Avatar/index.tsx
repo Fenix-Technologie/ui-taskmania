@@ -12,7 +12,7 @@ interface avatarProps {
 export const Avatar = ({ name, size }: avatarProps) => {
   const { avatarColor } = useAuth()
   return (
-    <AvatarRADIX.Root className="bg-blackA3 inline-flex h-[45px] w-[45px] select-none items-center justify-center overflow-hidden rounded-full align-middle">
+    <AvatarRADIX.Root className="bg-blackA3 inline-flex h-[45px] select-none items-center justify-center overflow-hidden rounded-full">
       <AvatarRADIX.Fallback
         className={`w-5 h-5 leading-1 flex items-center justify-center text-shadow text-[15px] font-medium`}
         delayMs={600}

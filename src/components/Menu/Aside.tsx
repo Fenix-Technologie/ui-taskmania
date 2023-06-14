@@ -15,7 +15,7 @@ export function Aside() {
                     <Menu />
                 </div>
                 <Separator.Root className="bg-white data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
-                <section>
+                {/* <section>
                     <header className="w-full flex flex-col items-center justify-start gap-y-4">
                         <div className='w-full flex flex-row items-center justify-start gap-x-2'>
                             <PremiumIcon color="#042C71" />
@@ -31,7 +31,7 @@ export function Aside() {
                             icon={<PremiumIcon color="#ffff" />}
                         />
                     </header>
-                </section>
+                </section> */}
             </main>
         </aside>
     )

@@ -1,6 +1,7 @@
 import { TactivityBoard } from "@/@types/boards";
 import { NotificationCard } from "../Notifications/card";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 interface WorkspaceCardprops {
     id: string
@@ -11,6 +12,19 @@ interface WorkspaceCardprops {
 }
 
 export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription, notifications }: WorkspaceCardprops) {
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        //@ts-ignore
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [notifications]);
+
+
     return (
         <article className="w-full h-full grid grid-cols-2 items-center justify-center rounded-lg">
             <Link href={`/board/${id}`}>
@@ -32,6 +46,7 @@ export function WorkspaceCard({ id, backgroundURL, boardName, boardDescription, 
                     <NotificationCard key={`${notfication.date}`} text={notfication.text} />
                 )
                 }
+                <div ref={messagesEndRef} />
             </section>
         </article>
     )

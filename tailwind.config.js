@@ -24,6 +24,7 @@ module.exports = {
         },
         gray: {
           20: '#F0F0F0',
+          30: '#EAEAEA',
           40: '#e8e8e8',
           49: '#EBEBEB',
           50: '#CECECE',
@@ -34,13 +35,23 @@ module.exports = {
           98: '#9A9A9A',
           99: '#B8B8B8',
           100: '#A5A5A5',
+          105: '#8C8C8C',
           120: '#404040',
           995: '#0C0C0C'
+
         },
         notification: {
           warning: '#F06E67',
           changes: '#F7C374',
           progress: '#74BAFA',
+          completed: '#80D465'
+        },
+        priorityColors: {
+          'very-high': '#ff8f89',
+          high: '#ffc978',
+          mid: '#fff6a1',
+          low: '#fffdc9',
+          'very-low': '#8dc9ff',
           completed: '#80D465'
         }
       },
