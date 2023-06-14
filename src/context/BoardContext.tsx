@@ -7,6 +7,7 @@ import { RemoveMember } from "@/services/requests/boards/removeMember";
 import { AddMemberCard } from "@/services/requests/cards/AddMemberCard";
 import { RemoveCard } from "@/services/requests/cards/RemoveCard";
 import { createTask } from "@/services/requests/cards/createTask";
+import { RemoveList } from "@/services/requests/lists/RemoveCard";
 import { changeCardsOrder } from "@/services/requests/lists/changeCardsOrder";
 import { createList } from "@/services/requests/lists/create";
 import { editTitleList } from "@/services/requests/lists/editTitle";
@@ -28,10 +29,11 @@ interface IContext {
   handleListTitle: (newTitle: string, id: string, boardId: string) => void;
   handleCreateNewTask: (title: string, listId: string, boardId: string) => void;
   handleSendInvitation: (email: string, id: string) => void;
-  handleRemoveMember: (boardId: string, userId: string) => void
+  handleRemoveMember: (boardId: string, userId: string) => void;
   onDragEnd: (result: any) => void;
-  handleAddMemberCard: (add: boolean, cardId: string, userId: string, boardId: string, listId: string, userName: string) => void
-  handleRemoveTask: (cardId: string, userId: string, boardId: string, listId: string) => void
+  handleAddMemberCard: (add: boolean, cardId: string, userId: string, boardId: string, listId: string, userName: string) => void;
+  handleRemoveTask: (cardId: string, userId: string, boardId: string, listId: string) => void;
+  handleRemoveList: (boardId: string, listId: string) => void;
 }
 
 export const BoardContext = createContext({} as IContext);
@@ -300,6 +302,15 @@ export function BoardProvider({ children }: BoardProviderProps) {
 
   }
 
+  const handleRemoveList = useCallback(async (boardId: string, listId: string) => {
+    await RemoveList({ boardId, listId })
+    setBoard(prev => ({
+      ...prev,
+      lists: prev.lists.filter(list => list._id !== listId)
+    })
+    )
+  }, [])
+
   const handleRemoveTask = useCallback(async (cardId: string, userId: string, boardId: string, listId: string) => {
     await RemoveCard({ cardId, userId, boardId, listId })
     setBoard(prev => ({
@@ -329,7 +340,8 @@ export function BoardProvider({ children }: BoardProviderProps) {
         handleRemoveMember,
         onDragEnd,
         handleAddMemberCard,
-        handleRemoveTask
+        handleRemoveTask,
+        handleRemoveList
       }}
     >
       {children}

@@ -15,7 +15,7 @@ interface ListProps {
 
 export function List({ list }: ListProps) {
   const [inputTitle, setInputTitle] = useState(list.title);
-  const { handleListTitle, handleCreateNewTask } = useContext(BoardContext);
+  const { handleListTitle, handleCreateNewTask, handleRemoveList } = useContext(BoardContext);
 
   const {
     query: { id },
@@ -39,7 +39,12 @@ export function List({ list }: ListProps) {
           value={inputTitle}
           onChange={(e) => setInputTitle(e.target.value)}
         />
-        <MenuList />
+        <button className="text-base text-[#042C71]"
+          onClick={() => handleRemoveList(String(id), list._id)}
+        >
+          X
+        </button>
+        {/* <MenuList /> */}
       </section>
       <Droppable droppableId={list._id}>
         {(provided) => (
