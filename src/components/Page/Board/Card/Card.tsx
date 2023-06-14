@@ -17,7 +17,7 @@ export function Card({ title, deadline, color }: CardProps) {
                     <h1 className='text-regular'>{title}</h1>
                     <div className="flex flex-row items-center gap-x-1">
                         <Clock />
-                        <p className="text-regular text-sm">{format(new Date(deadline), "dd'/'MM'/'yyyy")}</p>
+                        <p className="text-regular text-sm">{deadline}</p>
                     </div>
                 </section>
                 <section className='flex flex-col items-center gap-y-4'>
