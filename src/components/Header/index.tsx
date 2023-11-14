@@ -26,7 +26,7 @@ export function Header() {
                     <DropDownUser>
                         <button className='flex flex-row gap-2 items-center  text-regular '>
                             My account
-                            <Avatar name={user?.name || ""} size='30px' />
+                            <Avatar name={user?.name || ""} />
                         </button>
                     </DropDownUser>
                 ) : (asPath !== '/signin' ?
