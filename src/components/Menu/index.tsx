@@ -1,6 +1,6 @@
 import { MenuButton } from "./Button";
 import { HeartIcon, NewBoardIcon, ShareIcon } from "@/assets/icon";
-import Modal from "./Modal";
+import Modal from "./ModalOfCreationBoard";
 
 export function Menu() {
     const currentMenuOptions = [
